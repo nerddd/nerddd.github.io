@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F05%2F31%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Hexo相关]]></title>
+    <url>%2F2017%2F06%2F02%2FHexo%E7%9B%B8%E5%85%B3%2F</url>
+    <content type="text"><![CDATA[问题Hexo无法正常显示公式善用主题(theme)，以我使用的next主题为例，打开/themes/next/_config.yml文件，更改mathjax开关为： 1234# MathJax Supportmathjax: enable: true per_page: true 另外，还要在文章(.md文件)头设置开关，只用在有用公式显示的页面才加载Mathjax渲染，不影响其他的页面渲染速度，如下： 123456---title: index.htmldate: 2016-12-28 21:01:30tags:mathjax: true-- 题外话，可以在/scaffolds/post.md文件中添加mathjax一行，这样每次layout如果是由默认的post 生成新的文章的开头都会有mathjax，可以自己选择true或是false(注意mathjax冒号后面不要掉了空格)，如下： 123456title: &#123;&#123; title &#125;&#125;date: &#123;&#123; date &#125;&#125;categories: tags:description: mathjax: 优化]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[待办及进度]]></title>
+    <url>%2F2017%2F06%2F02%2F%E5%BE%85%E5%8A%9E%E5%8F%8A%E8%BF%9B%E5%BA%A6%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[杂知识点]]></title>
+    <url>%2F2017%2F06%2F01%2F%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[分类与回归分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。 Logistic Regression&amp;Linear Regression: Linear Regression:输出一个标量wx+b，这个值是连续值，用以回归问题 Logistic Regression:将上面的wx+b通过sigmoid函数映射到(0,1)上，划分阈值，大于阈值的分为一类，小于的分为另一类，用以处理二分类的问题 对于N分类问题，可以先计算N组w值不同的wx+b ，然后归一化，比如softmax函数变成N个类上的概率，用以多分类 SVR &amp;SVM SVR:输出wx+b，即某个样本点到分类面的距离，是连续值，属于回归问题 SVM：将SVR的距离用sign(.)函数作用，距离为正的样本点属于一类，为负的属于另一类 Naive Bayes用来分类和回归 前馈神经网络（CNN系列）用于分类和回归 回归：最后一层有m个神经元，每个神经元输出一个标量，m个神经元的三个月抽根烟截图看做向量v，现全部连接到一个神经元上，这个神经元的输出wv+b，是一个连续值，处理回归问题，和Linear Regression的思想一样 分类：将m个神经元最后连接到N个神经元，有N组不同的wv+b，进行归一化（比如softmax)，就变成N个类上的概率，如果不用softmax，而是每个wx+b用一个sigmoid，就变成多标签问题 循环神经网络（RNN系列）用于分类和回归 回归和分类与CNN类似，输出层的值y=wx+b，可做分类和回归，区别在于，RNN的输出和时间有关，即输出的是{y(t),y(t+1),..}序列 ​ 一些概念迁移学习：有监督预训练(supervised pre-training)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。 IoU(交并比):定位精度的评价公式$$IoU=\frac{A\cap B}{A\cup B}$$ ​ NMS(非极大值抑制):如果重叠度超过NMS，则丢弃 ​ 准确率&amp;精确率&amp;召回率: ​ 准确率是正确预测的样本占总的预测样本比例 ​ 精确率是预测为正的样本中有多少是真的正类 ​ 召回率是样本中有多少正例被正确的预测 ​ F值=准确率\召回率*2/(准确率+召回率)，是准确率和召回率的调和平均值 ​ TP：正类被预测为正类 ​ FN：正类被预测为负类 ​ FP：负类被预测为正类 ​ TN：负类被预测为负类$$准确率=\frac{TP+TN}{TP+TF+FN+FP}$$ $$精确率=\frac{TP}{TP+FP}$$ $$召回率=\frac{TP}{TP+FN}$$ ​ 卷积计算后的图片尺寸： $$outputsize=\frac{imagesize+2padding-kernelsize}{stride}$$​ *RankBoost: ​ RankBoost的思想比较简单，是二元Learning to rank的常规思路：通过构造目标分类 器，使得pair之间的对象存在相对大小关系。通俗点说，把对象组成一对对的pair，比如一组排序r1&gt;r2&gt;r3&gt;r4，那可以构成pair：(r1,r2)(r1,r3),(r1,r4),(r2,r3)(r3,r4),这样的pair是正值，也就是label是1；而余下的pair如(r2,r1)的值应该是-1或0。这样一个排序问题就被巧妙的转换为了分类问题。近来CV界很多又用这种learning to rank的思想做识别问题，先把识别转换为排序问题再转换为分类问题]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+        <tag>神经网络</tag>
+      </tags>
   </entry>
 </search>

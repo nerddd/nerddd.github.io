@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>calyp.github.io/2017/06/02/Hexo%E7%9B%B8%E5%85%B3/</loc>
+    
+    <lastmod>2017-06-02T08:25:37.278Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
+    
+    <lastmod>2017-06-02T08:13:40.635Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>calyp.github.io/2017/06/02/%E5%BE%85%E5%8A%9E%E5%8F%8A%E8%BF%9B%E5%BA%A6/</loc>
+    
+    <lastmod>2017-06-02T07:15:46.160Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>calyp.github.io/about/index.html</loc>
     
     <lastmod>2017-05-31T12:24:06.892Z</lastmod>
@@ -19,13 +40,6 @@
     <loc>calyp.github.io/tags/index.html</loc>
     
     <lastmod>2017-05-31T12:20:34.309Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>calyp.github.io/2017/05/31/hello-world/</loc>
-    
-    <lastmod>2017-05-31T08:30:33.538Z</lastmod>
     
   </url>
   
