@@ -62,7 +62,7 @@
     <link href="calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>calyp.github.io/2017/06/01/杂知识点/</id>
     <published>2017-06-01T01:42:05.000Z</published>
-    <updated>2017-06-02T08:13:40.635Z</updated>
+    <updated>2017-06-02T12:01:29.041Z</updated>
     
     <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
 <ol>
@@ -93,27 +93,26 @@
 <p>​</p>
 </li>
 </ul>
-<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><p><strong>迁移学习</strong>：有监督预训练(<em>supervised pre-training</em>)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。</p>
-<p><strong>IoU(交并比)</strong>:定位精度的评价公式<br>$$<br>IoU=\frac{A\cap B}{A\cup B}<br>$$</p>
 </li>
 </ol>
-<p>​        <strong>NMS(非极大值抑制)</strong>:如果重叠度超过NMS，则丢弃</p>
-<p>​    <strong>准确率&amp;精确率&amp;召回率</strong>:</p>
-<p>​    <em>准确率是正确预测的样本占总的预测样本比例</em></p>
-<p>​    <em>精确率是预测为正的样本中有多少是真的正类</em></p>
-<p>​    <em>召回率是样本中有多少正例被正确的预测</em></p>
-<p>​    <em>F值=准确率<em>\</em>召回率*2/(准确率+召回率)，是准确率和召回率的调和平均值</em></p>
-<p>​    <em>TP</em>：正类被预测为正类</p>
-<p>​    <em>FN</em>：正类被预测为负类</p>
-<p>​    <em>FP</em>：负类被预测为正类</p>
-<p>​    <em>TN</em>：负类被预测为负类<br>$$<br>准确率=\frac{TP+TN}{TP+TF+FN+FP}<br>$$</p>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="迁移学习："><a href="#迁移学习：" class="headerlink" title="迁移学习："></a>迁移学习：</h2><p>有监督预训练(<em>supervised pre-training</em>)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。</p>
 <ul>
-<li>$$<br>精确率=\frac{TP}{TP+FP}<br>$$</li>
+<li><strong>NMS(非极大值抑制)：</strong></li>
 </ul>
+<p>在物体检测中NMS（Non-maximum suppression）非极大抑制应用十分广泛，其目的是为了消除多余的框，找到最佳的物体检测的位置。在RCNN系列<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>中，会从一张图片中找出很多个候选框（可能包含物体的矩形边框），然后为每个矩形框为做类别分类概率。非极大值抑制（NMS）非极大值抑制顾名思义就是抑制不是极大值的元素，搜索局部的极大值。例如在对象检测中，滑动窗口经提取特征，经分类器分类识别后，每个窗口都会得到一个分类及分数。但是滑动窗口会导致很多窗口与其他窗口存在包含或者大部分交叉的情况。这时就需要用到NMS来选取那些邻域里分数最高（是某类对象的概率最大），并且抑制那些分数低的窗口。</p>
+<p>定位一个车辆，最后算法就找出了一堆的方框，我们需要判别哪些矩形框是没用的。 所谓非极大值抑制：先假设有6个矩形框，根据分类器类别分类概率做排序，从小到大分别属于车辆的概率分别为A、B、C、D、E、F。<br>(1)从最大概率矩形框F开始，分别判断A~E与F的重叠度IOU是否大于某个设定的阈值;<br>(2)假设B、D与F的重叠度超过阈值，那么就扔掉B、D；并标记第一个矩形框F，是我们保留下来的。<br>(3)从剩下的矩形框A、C、E中，选择概率最大的E，然后判断E与A、C的重叠度，重叠度大于一定的阈值，那么就扔掉；并标记E是我们保留下来的第二个矩形框。<br>就这样一直重复，找到所有被保留下来的矩形框。</p>
+<ul>
+<li><strong>IoU(交并比)：</strong></li>
+</ul>
+<p>物体检测需要定位出物体的bounding box，比如车辆检查中，我们不仅要定位出车辆的bounding box ，还要识别出bounding box 里面的物体就是车辆。对于bounding box的定位精度，有一个很重要的概念，因为我们<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>不可能百分百跟人工标注的数据完全匹配，因此就存在一个定位精度评价公式：IOU。IOU表示了bounding box 与 ground truth 的重叠度。即IoU是定位精度的评价公式<br>$$<br>IoU=\frac{A\cap B}{A\cup B}<br>$$</p>
+<h2 id="准确率-amp-精确率-amp-召回率"><a href="#准确率-amp-精确率-amp-召回率" class="headerlink" title="准确率&amp;精确率&amp;召回率:"></a>准确率&amp;精确率&amp;召回率:</h2><p>​    <em>准确率是正确预测的样本占总的预测样本比例</em><br>​    <em>精确率是预测为正的样本中有多少是真的正类</em><br>​    <em>召回率是样本中有多少正例被正确的预测</em><br>​    <em>F值=准确率*召回率*2/(准确率+召回率)，是准确率和召回率的调和平均值</em></p>
+<p>​<em>TP</em>：正类被预测为正类<br>​<em>FN</em>：正类被预测为负类<br>​<em>FP</em>：负类被预测为正类<br>​<em>TN</em>：负类被预测为负类</p>
+<p>$$<br>准确率=\frac{TP+TN}{TP+TF+FN+FP}<br>$$</p>
+<p>$$<br>精确率=\frac{TP}{TP+FP}<br>$$</p>
 <p>$$<br>召回率=\frac{TP}{TP+FN}<br>$$</p>
-<p>​    <strong>卷积计算后的图片尺寸</strong>：</p>
-<p>$$<br>outputsize=\frac{imagesize+2<em>padding-kernelsize}{stride}<br>$$<br>​    <em>*RankBoost</em></em>:</p>
-<p>​    RankBoost的思想比较简单，是二元Learning to rank的常规思路：通过构造目标分类    器，使得pair之间的对象存在相对大小关系。通俗点说，把对象组成一对对的pair，比如一组排序r1&gt;r2&gt;r3&gt;r4，那可以构成pair：(r1,r2)(r1,r3),(r1,r4),(r2,r3)(r3,r4),这样的pair是正值，也就是label是1；而余下的pair如(r2,r1)的值应该是-1或0。这样一个排序问题就被巧妙的转换为了分类问题。近来CV界很多又用这种learning to rank的思想做识别问题，先把识别转换为排序问题再转换为分类问题</p>
+<h2 id="卷积计算后的图片尺寸："><a href="#卷积计算后的图片尺寸：" class="headerlink" title="卷积计算后的图片尺寸："></a>卷积计算后的图片尺寸：</h2><p>$$<br>outputsize=\frac{imagesize+2*padding-kernelsize}{stride}<br>$$</p>
+<h2 id="RankBoost"><a href="#RankBoost" class="headerlink" title="RankBoost:"></a>RankBoost:</h2><p>​    RankBoost的思想比较简单，是二元Learning to rank的常规思路：通过构造目标分类    器，使得pair之间的对象存在相对大小关系。通俗点说，把对象组成一对对的pair，比如一组排序r1&gt;r2&gt;r3&gt;r4，那可以构成pair：(r1,r2)(r1,r3),(r1,r4),(r2,r3)(r3,r4),这样的pair是正值，也就是label是1；而余下的pair如(r2,r1)的值应该是-1或0。这样一个排序问题就被巧妙的转换为了分类问题。近来CV界很多又用这种learning to rank的思想做识别问题，先把识别转换为排序问题再转换为分类问题</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[<a href="http://blog.csdn.net/zhang_shuai12/article/details/52716952" target="_blank" rel="external">物体检测中常用的几个概念迁移学习、IOU、NMS理解</a>]</p>
 ]]></content>
     
     <summary type="html">
