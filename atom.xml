@@ -92,9 +92,9 @@
     <link href="calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>calyp.github.io/2017/06/01/杂知识点/</id>
     <published>2017-06-01T01:42:05.000Z</published>
-    <updated>2017-06-03T01:53:14.188Z</updated>
+    <updated>2017-06-08T01:58:50.356Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><code>本节部分转载于穆文发表于知乎的[分类与回归区别是什么](https://www.zhihu.com/question/21329754/answer/151216012)下面的回答，获得原作者授权</code></p>
+    <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><strong>本节部分转载于穆文发表于知乎的<a href="https://www.zhihu.com/question/21329754/answer/151216012" target="_blank" rel="external">分类与回归区别是什么</a>下面的回答，获得原作者授权</strong></p>
 <p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
 <ol>
 <li><p>Logistic Regression&amp;Linear Regression:</p>
@@ -160,7 +160,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;分类与回归&quot;&gt;&lt;a href=&quot;#分类与回归&quot; class=&quot;headerlink&quot; title=&quot;分类与回归&quot;&gt;&lt;/a&gt;分类与回归&lt;/h1&gt;&lt;p&gt;&lt;code&gt;本节部分转载于穆文发表于知乎的[分类与回归区别是什么](https://www.zhihu.com/qu
+      &lt;h1 id=&quot;分类与回归&quot;&gt;&lt;a href=&quot;#分类与回归&quot; class=&quot;headerlink&quot; title=&quot;分类与回归&quot;&gt;&lt;/a&gt;分类与回归&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;本节部分转载于穆文发表于知乎的&lt;a href=&quot;https://www.zhihu.com/ques
     
     </summary>
     
