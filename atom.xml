@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="calyp.github.io/"/>
-  <updated>2017-06-02T08:25:37.278Z</updated>
+  <updated>2017-06-02T13:09:42.119Z</updated>
   <id>calyp.github.io/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Triplet loss</title>
+    <link href="calyp.github.io/2017/06/02/Triplet%20loss/"/>
+    <id>calyp.github.io/2017/06/02/Triplet loss/</id>
+    <published>2017-06-02T12:26:35.000Z</published>
+    <updated>2017-06-02T13:09:42.119Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
+<p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
+<h3 id="Triplet-loss中的margin取值分析"><a href="#Triplet-loss中的margin取值分析" class="headerlink" title="Triplet loss中的margin取值分析"></a>Triplet loss中的margin取值分析</h3><p>我们的目的是为了让loss在训练迭代中下降的越小越好，即使Anchor和Positive越接近越好，Anchor和Negative越远越好，并且要让x_a与x_n之间的距离和x_a与x_p之间的距离之间有一个最小的间隔。简而言之，Triplet loss就是要使类内距离越小，类间距离越大。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">当 margin 值越小时，loss 也就较容易的趋近于 0，于是 Anchor 与 Positive 都不需要拉的太近，Anchor 与 Negative 不需要拉的太远，就能使得 loss 很快的趋近于 0。这样训练得到的结果，不能够很好的区分相似的图像。</div><div class="line"></div><div class="line">当 Anchor 越大时，就需要使得网络参数要拼命地拉近 Anchor、Positive 之间的距离，拉远 Anchor、Negative 之间的距离。如果 margin 值设置的太大，很可能最后 loss 保持一个较大的值，难以趋近于 0 。</div><div class="line"></div><div class="line">因此，设置一个合理的 margin 值很关键，这是衡量相似度的重要指标。简而言之，margin 值设置的越小，loss 很容易趋近于 0 ，但很难区分相似的图像。margin 值设置的越大，loss 值较难趋近于 0，甚至导致网络不收敛，但可以较有把握的区分较为相似的图像。</div></pre></td></tr></table></figure>
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p>区分相似图形，除了triplet loss，还有一篇CVPR：<a href="http://blog.csdn.net/u010167269/article/details/51783446" target="_blank" rel="external">《Deep Relative Distance Learning: Tell the Difference Between Similar Vehicles》</a>提出的Coupled Cluster Loss.</p>
+<p><strong>本文参考</strong>：</p>
+<p><a href="http://www.voidcn.com/blog/tangwei2014/article/p-4415770.html" target="_blank" rel="external">triplet loss 原理以及梯度推导</a></p>
+<p><a href="http://www.voidcn.com/blog/mao_kun/article/p-6246924.html" target="_blank" rel="external">如何在Caffe中增加layer以及Caffe中triplet loss layer的实现</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;原理&quot;&gt;&lt;a href=&quot;#原理&quot; class=&quot;headerlink&quot; title=&quot;原理&quot;&gt;&lt;/a&gt;原理&lt;/h1&gt;&lt;p&gt;Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor 
+    
+    </summary>
+    
+      <category term="Face" scheme="calyp.github.io/categories/Face/"/>
+    
+    
+      <category term="深度学习，人脸识别" scheme="calyp.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo相关</title>
@@ -62,9 +92,10 @@
     <link href="calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>calyp.github.io/2017/06/01/杂知识点/</id>
     <published>2017-06-01T01:42:05.000Z</published>
-    <updated>2017-06-02T12:01:29.041Z</updated>
+    <updated>2017-06-03T01:53:14.188Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
+    <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><code>本节部分转载于穆文发表于知乎的[分类与回归区别是什么](https://www.zhihu.com/question/21329754/answer/151216012)下面的回答，获得原作者授权</code></p>
+<p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
 <ol>
 <li><p>Logistic Regression&amp;Linear Regression:</p>
 <ul>
@@ -89,13 +120,23 @@
 </li>
 <li><p>循环神经网络（RNN系列）用于分类和回归</p>
 <ul>
-<li><p>回归和分类与CNN类似，输出层的值<strong>y=wx+b</strong>，可做分类和回归，区别在于，RNN的输出和时间有关，即输出的是{y(t),y(t+1),..}序列</p>
-<p>​</p>
-</li>
+<li>回归和分类与CNN类似，输出层的值<strong>y=wx+b</strong>，可做分类和回归，区别在于，RNN的输出和时间有关，即输出的是{y(t),y(t+1),..}序列</li>
 </ul>
 </li>
+<li><p>Logistic回归&amp;SVM</p>
+<p> 两种方法都是常见的分类算法，从目标函数来看，区别在于逻辑回归采用的是logistical loss，svm采用的是hinge loss。这两个损失函数的目的都是增加对分类影响较大的数据点的权重，减少与分类关系较小的数据点的权重。SVM的处理方法是只考虑support vectors，也就是和分类最相关的少数点，去学习分类器。而逻辑回归通过非线性映射，大大减小了离分类平面较远的点的权重，相对提升了与分类最相关的数据点的权重。两者的根本目的都是一样的。此外，根据需要，两个方法都可以增加不同的正则化项，如l1,l2等等。所以在很多实验中，两种算法的结果是很接近的。<a href="[SVM和logistic回归分别在什么情况下使用](https://www.zhihu.com/question/21704547/answer/20293255)">^1</a></p>
+<p> 线性模型的表达式为</p>
+</li>
 </ol>
-<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="迁移学习："><a href="#迁移学习：" class="headerlink" title="迁移学习："></a>迁移学习：</h2><p>有监督预训练(<em>supervised pre-training</em>)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。</p>
+<p>$$<br>h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+…+\theta_nx_n<br>$$</p>
+<p>​    将线性模型的输出送给sigmoid函数，就得到logistic回归模型；将线性模型表达式中的xi换为fi，就得到SVM模型的表达式。其中fi是xi的核函数，也就是xi的非线性多项式，例如f1=x1*x2，所以线性kernel的SVM(fi=xi)，在选择和使用上跟logistic回归没有区别。</p>
+<p>​    用n表示Feature数量,m表示训练集个数。下面分情况讨论<a href="[SVM和Logistic的区别](http://blog.csdn.net/ybdesire/article/details/54143481)">^2</a>：</p>
+<ul>
+<li>n很大，m很小<br>n很大，一般指n=10000；m很小，一般m=10-1000。m很小，说明没有足够的训练集来拟合非常复杂的非线性模型，所以这种情况既可以选择<code>线性kernel的SVM</code>，也可以选择<code>Logistic回归</code>。</li>
+<li>n很小，m中等<br>n很小，一般指n=1-1000；m很小，一般m=1000-10000。m中等，说明有足够的训练集来拟合非常复杂的非线性模型，此时适合选择<code>非线性kernel的SVM</code>，比如<code>高斯核kernel的SVM</code>。</li>
+<li>n很小，m很大<br>n很小，一般指n=1-1000；m很大，一般m=50000-1000000。m很大，说明有足够的训练集来拟合非常复杂的非线性模型，但m很大的情况下，<code>带核函数的SVM</code>计算也非常慢。所以此时应该选<code>线性kernel的SVM</code>，也可以选择<code>Logistic回归</code>。n很小，说明Feature可能不足以表达模型，所以要添加更多Feature。</li>
+</ul>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="迁移学习-3："><a href="#迁移学习-3：" class="headerlink" title="迁移学习^3："></a>迁移学习<a href="[[物体检测中常用的几个概念迁移学习、IOU、NMS理解](http://blog.csdn.net/zhang_shuai12/article/details/52716952)]">^3</a>：</h2><p>有监督预训练(<em>supervised pre-training</em>)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。</p>
 <ul>
 <li><strong>NMS(非极大值抑制)：</strong></li>
 </ul>
@@ -112,12 +153,14 @@
 <p>$$<br>召回率=\frac{TP}{TP+FN}<br>$$</p>
 <h2 id="卷积计算后的图片尺寸："><a href="#卷积计算后的图片尺寸：" class="headerlink" title="卷积计算后的图片尺寸："></a>卷积计算后的图片尺寸：</h2><p>$$<br>outputsize=\frac{imagesize+2*padding-kernelsize}{stride}<br>$$</p>
 <h2 id="RankBoost"><a href="#RankBoost" class="headerlink" title="RankBoost:"></a>RankBoost:</h2><p>​    RankBoost的思想比较简单，是二元Learning to rank的常规思路：通过构造目标分类    器，使得pair之间的对象存在相对大小关系。通俗点说，把对象组成一对对的pair，比如一组排序r1&gt;r2&gt;r3&gt;r4，那可以构成pair：(r1,r2)(r1,r3),(r1,r4),(r2,r3)(r3,r4),这样的pair是正值，也就是label是1；而余下的pair如(r2,r1)的值应该是-1或0。这样一个排序问题就被巧妙的转换为了分类问题。近来CV界很多又用这种learning to rank的思想做识别问题，先把识别转换为排序问题再转换为分类问题</p>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[<a href="http://blog.csdn.net/zhang_shuai12/article/details/52716952" target="_blank" rel="external">物体检测中常用的几个概念迁移学习、IOU、NMS理解</a>]</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="https://www.zhihu.com/question/21704547/answer/20293255" target="_blank" rel="external">SVM和logistic回归分别在什么情况下使用</a></p>
+<p><a href="http://blog.csdn.net/ybdesire/article/details/54143481" target="_blank" rel="external">SVM和Logistic的区别</a></p>
+<p>[<a href="http://blog.csdn.net/zhang_shuai12/article/details/52716952" target="_blank" rel="external">物体检测中常用的几个概念迁移学习、IOU、NMS理解</a>]</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;分类与回归&quot;&gt;&lt;a href=&quot;#分类与回归&quot; class=&quot;headerlink&quot; title=&quot;分类与回归&quot;&gt;&lt;/a&gt;分类与回归&lt;/h1&gt;&lt;p&gt;&lt;em&gt;分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。&lt;/em&gt;&lt;
+      &lt;h1 id=&quot;分类与回归&quot;&gt;&lt;a href=&quot;#分类与回归&quot; class=&quot;headerlink&quot; title=&quot;分类与回归&quot;&gt;&lt;/a&gt;分类与回归&lt;/h1&gt;&lt;p&gt;&lt;code&gt;本节部分转载于穆文发表于知乎的[分类与回归区别是什么](https://www.zhihu.com/qu
     
     </summary>
     

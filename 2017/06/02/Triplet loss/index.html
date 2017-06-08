@@ -92,7 +92,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="深度学习，人脸识别," />
 
 
 
@@ -110,15 +110,19 @@
 
 
 
-<meta name="description" content="学习博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Calyp">
-<meta property="og:url" content="calyp.github.io/archives/2017/06/index.html">
+<meta name="description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
+<meta name="keywords" content="深度学习，人脸识别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Triplet loss">
+<meta property="og:url" content="calyp.github.io/2017/06/02/Triplet loss/index.html">
 <meta property="og:site_name" content="Calyp">
-<meta property="og:description" content="学习博客">
+<meta property="og:description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
+<meta property="og:image" content="http://img.blog.csdn.net/20160727090101355">
+<meta property="og:updated_time" content="2017-06-02T13:09:42.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Calyp">
-<meta name="twitter:description" content="学习博客">
+<meta name="twitter:title" content="Triplet loss">
+<meta name="twitter:description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160727090101355">
 
 
 
@@ -146,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="calyp.github.io/archives/2017/06/"/>
+  <link rel="canonical" href="calyp.github.io/2017/06/02/Triplet loss/"/>
 
 
 
 
 
-  <title>Archive | Calyp</title>
+  <title>Triplet loss | Calyp</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -178,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,177 +296,177 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Um..! 4 posts in total. Keep on posting.
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/02/Triplet loss/" itemprop="url">
-              
-                <span itemprop="name">Triplet loss</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T20:26:35+08:00"
-              content="2017-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/02/Hexo相关/" itemprop="url">
-              
-                <span itemprop="name">Hexo相关</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T16:05:45+08:00"
-              content="2017-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/02/待办及进度/" itemprop="url">
-              
-                <span itemprop="name">待办及进度</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-02T15:15:46+08:00"
-              content="2017-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/01/杂知识点/" itemprop="url">
-              
-                <span itemprop="name">杂知识点</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-01T09:42:05+08:00"
-              content="2017-06-01" >
-          06-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="calyp.github.io/2017/06/02/Triplet loss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calyp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/images.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calyp">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Triplet loss</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T20:26:35+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Face/" itemprop="url" rel="index">
+                    <span itemprop="name">Face</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
+<p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
+<h3 id="Triplet-loss中的margin取值分析"><a href="#Triplet-loss中的margin取值分析" class="headerlink" title="Triplet loss中的margin取值分析"></a>Triplet loss中的margin取值分析</h3><p>我们的目的是为了让loss在训练迭代中下降的越小越好，即使Anchor和Positive越接近越好，Anchor和Negative越远越好，并且要让x_a与x_n之间的距离和x_a与x_p之间的距离之间有一个最小的间隔。简而言之，Triplet loss就是要使类内距离越小，类间距离越大。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">当 margin 值越小时，loss 也就较容易的趋近于 0，于是 Anchor 与 Positive 都不需要拉的太近，Anchor 与 Negative 不需要拉的太远，就能使得 loss 很快的趋近于 0。这样训练得到的结果，不能够很好的区分相似的图像。</div><div class="line"></div><div class="line">当 Anchor 越大时，就需要使得网络参数要拼命地拉近 Anchor、Positive 之间的距离，拉远 Anchor、Negative 之间的距离。如果 margin 值设置的太大，很可能最后 loss 保持一个较大的值，难以趋近于 0 。</div><div class="line"></div><div class="line">因此，设置一个合理的 margin 值很关键，这是衡量相似度的重要指标。简而言之，margin 值设置的越小，loss 很容易趋近于 0 ，但很难区分相似的图像。margin 值设置的越大，loss 值较难趋近于 0，甚至导致网络不收敛，但可以较有把握的区分较为相似的图像。</div></pre></td></tr></table></figure>
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p>区分相似图形，除了triplet loss，还有一篇CVPR：<a href="http://blog.csdn.net/u010167269/article/details/51783446" target="_blank" rel="external">《Deep Relative Distance Learning: Tell the Difference Between Similar Vehicles》</a>提出的Coupled Cluster Loss.</p>
+<p><strong>本文参考</strong>：</p>
+<p><a href="http://www.voidcn.com/blog/tangwei2014/article/p-4415770.html" target="_blank" rel="external">triplet loss 原理以及梯度推导</a></p>
+<p><a href="http://www.voidcn.com/blog/mao_kun/article/p-6246924.html" target="_blank" rel="external">如何在Caffe中增加layer以及Caffe中triplet loss layer的实现</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习，人脸识别/" rel="tag"># 深度学习，人脸识别</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/02/Hexo相关/" rel="next" title="Hexo相关">
+                <i class="fa fa-chevron-left"></i> Hexo相关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -470,6 +474,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -489,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/images.jpg"
@@ -607,6 +624,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Triplet-loss中的margin取值分析"><span class="nav-number">1.0.1.</span> <span class="nav-text">Triplet loss中的margin取值分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关"><span class="nav-number">1.1.</span> <span class="nav-text">相关</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -719,11 +752,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
