@@ -92,7 +92,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="深度学习，人脸识别," />
+  <meta name="keywords" content="caffe,调参," />
 
 
 
@@ -110,19 +110,17 @@
 
 
 
-<meta name="description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
-<meta name="keywords" content="深度学习，人脸识别">
+<meta name="description" content="loss为nan梯度爆炸 原因：梯度变得非常大，使得学习过程难以继续 现象：观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。 措施：   减小solver.prototxt中的base_lr，至少减小一个数量级。如果有多个loss layer，需要找出哪个损失层导致了梯度爆炸，并在train_val.prototxt中减小该层的lo">
+<meta name="keywords" content="caffe,调参">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Triplet loss">
-<meta property="og:url" content="calyp.github.io/2017/06/02/Triplet loss/index.html">
+<meta property="og:title" content="Caffe调参">
+<meta property="og:url" content="calyp.github.io/2017/06/17/Caffe调参/index.html">
 <meta property="og:site_name" content="Calyp">
-<meta property="og:description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
-<meta property="og:image" content="http://img.blog.csdn.net/20160727090101355">
-<meta property="og:updated_time" content="2017-06-02T13:09:42.119Z">
+<meta property="og:description" content="loss为nan梯度爆炸 原因：梯度变得非常大，使得学习过程难以继续 现象：观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。 措施：   减小solver.prototxt中的base_lr，至少减小一个数量级。如果有多个loss layer，需要找出哪个损失层导致了梯度爆炸，并在train_val.prototxt中减小该层的lo">
+<meta property="og:updated_time" content="2017-06-17T02:24:49.318Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Triplet loss">
-<meta name="twitter:description" content="原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。  Triplet loss中的margin取值分析我们的目的是为了让lo">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160727090101355">
+<meta name="twitter:title" content="Caffe调参">
+<meta name="twitter:description" content="loss为nan梯度爆炸 原因：梯度变得非常大，使得学习过程难以继续 现象：观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。 措施：   减小solver.prototxt中的base_lr，至少减小一个数量级。如果有多个loss layer，需要找出哪个损失层导致了梯度爆炸，并在train_val.prototxt中减小该层的lo">
 
 
 
@@ -150,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="calyp.github.io/2017/06/02/Triplet loss/"/>
+  <link rel="canonical" href="calyp.github.io/2017/06/17/Caffe调参/"/>
 
 
 
 
 
-  <title>Triplet loss | Calyp</title>
+  <title>Caffe调参 | Calyp</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -306,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="calyp.github.io/2017/06/02/Triplet loss/">
+    <link itemprop="mainEntityOfPage" href="calyp.github.io/2017/06/17/Caffe调参/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Calyp">
@@ -323,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Triplet loss</h1>
+          <h1 class="post-title" itemprop="name headline">Caffe调参</h1>
         
 
         <div class="post-meta">
@@ -335,8 +333,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T20:26:35+08:00">
-                2017-06-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-17T09:26:12+08:00">
+                2017-06-17
               </time>
             
 
@@ -358,8 +356,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Face/" itemprop="url" rel="index">
-                    <span itemprop="name">Face</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -392,14 +390,31 @@
       
 
       
-        <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
-<p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
-<h3 id="Triplet-loss中的margin取值分析"><a href="#Triplet-loss中的margin取值分析" class="headerlink" title="Triplet loss中的margin取值分析"></a>Triplet loss中的margin取值分析</h3><p>我们的目的是为了让loss在训练迭代中下降的越小越好，即使Anchor和Positive越接近越好，Anchor和Negative越远越好，并且要让x_a与x_n之间的距离和x_a与x_p之间的距离之间有一个最小的间隔。简而言之，Triplet loss就是要使类内距离越小，类间距离越大。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">当 margin 值越小时，loss 也就较容易的趋近于 0，于是 Anchor 与 Positive 都不需要拉的太近，Anchor 与 Negative 不需要拉的太远，就能使得 loss 很快的趋近于 0。这样训练得到的结果，不能够很好的区分相似的图像。</div><div class="line"></div><div class="line">当 Anchor 越大时，就需要使得网络参数要拼命地拉近 Anchor、Positive 之间的距离，拉远 Anchor、Negative 之间的距离。如果 margin 值设置的太大，很可能最后 loss 保持一个较大的值，难以趋近于 0 。</div><div class="line"></div><div class="line">因此，设置一个合理的 margin 值很关键，这是衡量相似度的重要指标。简而言之，margin 值设置的越小，loss 很容易趋近于 0 ，但很难区分相似的图像。margin 值设置的越大，loss 值较难趋近于 0，甚至导致网络不收敛，但可以较有把握的区分较为相似的图像。</div></pre></td></tr></table></figure>
-<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><p>区分相似图形，除了triplet loss，还有一篇CVPR：<a href="http://blog.csdn.net/u010167269/article/details/51783446" target="_blank" rel="external">《Deep Relative Distance Learning: Tell the Difference Between Similar Vehicles》</a>提出的Coupled Cluster Loss.</p>
-<p><strong>本文参考</strong>：</p>
-<p><a href="http://www.voidcn.com/blog/tangwei2014/article/p-4415770.html" target="_blank" rel="external">triplet loss 原理以及梯度推导</a></p>
-<p><a href="http://www.voidcn.com/blog/mao_kun/article/p-6246924.html" target="_blank" rel="external">如何在Caffe中增加layer以及Caffe中triplet loss layer的实现</a></p>
+        <h1 id="loss为nan"><a href="#loss为nan" class="headerlink" title="loss为nan"></a>loss为nan</h1><p><strong>梯度爆炸</strong></p>
+<p><strong>原因</strong>：梯度变得非常大，使得学习过程难以继续</p>
+<p><strong>现象：</strong>观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。</p>
+<p><strong>措施</strong>： </p>
+<ol>
+<li>减小solver.prototxt中的base_lr，至少减小一个数量级。如果有多个loss layer，需要找出哪个损失层导致了梯度爆炸，并在train_val.prototxt中减小该层的loss_weight，而非是减小通用的base_lr。 </li>
+<li>设置clip gradient，用于限制过大的diff</li>
+</ol>
+<p>## </p>
+<p><strong>不当的损失函数</strong></p>
+<p><strong>原因</strong>：有时候损失层中loss的计算可能导致NaN的出现。比如，给InfogainLoss层（信息熵损失）输入没有归一化的值，使用带有bug的自定义损失层等等。</p>
+<p><strong>现象</strong>：观测训练产生的log时一开始并不能看到异常，loss也在逐步的降低，但突然之间NaN就出现了。</p>
+<p><strong>措施</strong>：看看你是否能重现这个错误，在loss layer中加入一些输出以进行调试。</p>
+<p>示例：有一次我使用的loss归一化了batch中label错误的次数。如果某个label从未在batch中出现过，loss就会变成NaN。在这种情况下，可以用足够大的batch来尽量避免这个错误。</p>
+<p>## </p>
+<p><strong>不当的输入</strong></p>
+<p><strong>原因</strong>：输入中就含有NaN。</p>
+<p><strong>现象</strong>：每当学习的过程中碰到这个错误的输入，就会变成NaN。观察log的时候也许不能察觉任何异常，loss逐步的降低，但突然间就变成NaN了。</p>
+<p><strong>措施</strong>：重整你的数据集，确保训练集和验证集里面没有损坏的图片。调试中你可以使用一个简单的网络来读取输入层，有一个缺省的loss，并过一遍所有输入，如果其中有错误的输入，这个缺省的层也会产生NaN。</p>
+<p><strong>案例</strong>：有一次公司需要训练一个模型，把标注好的图片放在了七牛上，拉下来的时候发生了dns劫持，有一张图片被换成了淘宝的购物二维码，且这个二维码格式与原图的格式不符合，因此成为了一张“损坏”图片。每次训练遇到这个图片的时候就会产生NaN。良好的习惯是，你有一个检测性的网络，每次训练目标网络之前把所有的样本在这个检测性的网络里面过一遍，去掉非法值。</p>
+<p><strong>池化层中步长比核的尺寸大</strong></p>
+<p>如下例所示，当池化层中stride &gt; kernel的时候会在y中产生NaN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">  name: &quot;faulty_pooling&quot;</div><div class="line">  type: &quot;Pooling&quot;</div><div class="line">  bottom: &quot;x&quot;</div><div class="line">  top: &quot;y&quot;</div><div class="line">  pooling_param &#123;</div><div class="line">  pool: AVE</div><div class="line">  stride: 5</div><div class="line">  kernel: 3</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p><em><a href="http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training" target="_blank" rel="external">http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training</a></em></p>
+<h1 id="Accuracy一直为0"><a href="#Accuracy一直为0" class="headerlink" title="Accuracy一直为0"></a>Accuracy一直为0</h1><p>考虑标签是否从0开始递增</p>
 
       
     </div>
@@ -429,7 +444,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深度学习，人脸识别/" rel="tag"># 深度学习，人脸识别</a>
+            <a href="/tags/caffe/" rel="tag"># caffe</a>
+          
+            <a href="/tags/调参/" rel="tag"># 调参</a>
           
         </div>
       
@@ -442,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/02/Hexo相关/" rel="next" title="Hexo相关">
-                <i class="fa fa-chevron-left"></i> Hexo相关
+              <a href="/2017/06/09/Python/" rel="next" title="Python">
+                <i class="fa fa-chevron-left"></i> Python
               </a>
             
           </div>
@@ -452,8 +469,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/09/Python/" rel="prev" title="Python">
-                Python <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/28/FaceNet论文笔记/" rel="prev" title="FaceNet论文笔记">
+                FaceNet论文笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Triplet-loss中的margin取值分析"><span class="nav-number">1.0.1.</span> <span class="nav-text">Triplet loss中的margin取值分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关"><span class="nav-number">1.1.</span> <span class="nav-text">相关</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#loss为nan"><span class="nav-number">1.</span> <span class="nav-text">loss为nan</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-number">1.1.</span> <span class="nav-text">致谢</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Accuracy一直为0"><span class="nav-number">2.</span> <span class="nav-text">Accuracy一直为0</span></a></li></ol></div>
             
 
           </div>
@@ -812,26 +829,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

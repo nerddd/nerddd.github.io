@@ -110,16 +110,19 @@
 
 
 
-<meta name="description" content="学习博客">
+<meta name="description" content="Model PCA Size Threshold Score     Mirror 192 0.64 99.42%   Mirror Concat 192 0.65 99.42%   Mirror Add/Average 184 0.64 99.47%   Mirror Max 144 0.65 99.43%   Mirror Min 168 0.65 99.48%   Mirror Avg">
 <meta property="og:type" content="article">
 <meta property="og:title" content="待办及进度">
 <meta property="og:url" content="calyp.github.io/2017/06/02/待办及进度/index.html">
 <meta property="og:site_name" content="Calyp">
-<meta property="og:description" content="学习博客">
-<meta property="og:updated_time" content="2017-06-02T07:15:46.160Z">
+<meta property="og:description" content="Model PCA Size Threshold Score     Mirror 192 0.64 99.42%   Mirror Concat 192 0.65 99.42%   Mirror Add/Average 184 0.64 99.47%   Mirror Max 144 0.65 99.43%   Mirror Min 168 0.65 99.48%   Mirror Avg">
+<meta property="og:image" content="c:/Users/lc/Desktop/test_crop/all/figure.png">
+<meta property="og:image" content="c:/Users/lc/Desktop/test_crop/all/figure2.png">
+<meta property="og:updated_time" content="2017-06-16T02:33:59.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="待办及进度">
-<meta name="twitter:description" content="学习博客">
+<meta name="twitter:description" content="Model PCA Size Threshold Score     Mirror 192 0.64 99.42%   Mirror Concat 192 0.65 99.42%   Mirror Add/Average 184 0.64 99.47%   Mirror Max 144 0.65 99.43%   Mirror Min 168 0.65 99.48%   Mirror Avg">
+<meta name="twitter:image" content="c:/Users/lc/Desktop/test_crop/all/figure.png">
 
 
 
@@ -367,7 +370,199 @@
       
 
       
-        
+        <table>
+<thead>
+<tr>
+<th>Model</th>
+<th>PCA Size</th>
+<th>Threshold</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mirror</td>
+<td>192</td>
+<td>0.64</td>
+<td>99.42%</td>
+</tr>
+<tr>
+<td>Mirror Concat</td>
+<td>192</td>
+<td>0.65</td>
+<td>99.42%</td>
+</tr>
+<tr>
+<td>Mirror Add/Average</td>
+<td>184</td>
+<td>0.64</td>
+<td>99.47%</td>
+</tr>
+<tr>
+<td>Mirror Max</td>
+<td>144</td>
+<td>0.65</td>
+<td>99.43%</td>
+</tr>
+<tr>
+<td>Mirror Min</td>
+<td>168</td>
+<td>0.65</td>
+<td>99.48%</td>
+</tr>
+<tr>
+<td>Mirror Avg+min</td>
+<td>168</td>
+<td>0.65</td>
+<td>99.45%</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>eye_width</th>
+<th>num</th>
+<th>eye_width</th>
+<th>num</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0~10</td>
+<td>14</td>
+<td>90~100</td>
+<td>8,5674</td>
+</tr>
+<tr>
+<td>10~20</td>
+<td>3329</td>
+<td>100~110</td>
+<td>2,9481</td>
+</tr>
+<tr>
+<td>20~30</td>
+<td>21,3675</td>
+<td>110~120</td>
+<td>9051</td>
+</tr>
+<tr>
+<td>30~40</td>
+<td>45,1416</td>
+<td>120~130</td>
+<td>2894</td>
+</tr>
+<tr>
+<td>40~50</td>
+<td>49,1913</td>
+<td>130~140</td>
+<td>932</td>
+</tr>
+<tr>
+<td>50~60</td>
+<td>72,8911</td>
+<td>140~150</td>
+<td>279</td>
+</tr>
+<tr>
+<td>60~70</td>
+<td>137,9232</td>
+<td>150~160</td>
+<td>86</td>
+</tr>
+<tr>
+<td>70~80</td>
+<td>128,7442</td>
+<td>160~170</td>
+<td>14</td>
+</tr>
+<tr>
+<td>80~90</td>
+<td>30,9026</td>
+<td>170~180</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><img src="C:\Users\lc\Desktop\test_crop\all\figure.png" alt="figure"></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>1.对于人脸关键点数据中，[eye_left_x,eye_left_y,eye_right_x,eye_right_y…],在进行眼睛宽度估算时，利用eye_width=(eye_right_x-eye_elft_x)<em>0.78,所以crop后左眼的最左边的坐标公式为eye_left_x-0.5</em>eye_width，有一种情况没考虑到就是eye_left_x小于0.5*eye_width，所以要加一个判断语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if eye_width*0.5&gt;eye_left_x:</div><div class="line">            eye_width=eye_left_x*2</div></pre></td></tr></table></figure></p>
+<p>导致眼睛宽度估算分布就不太准确，最终导致在mscelebv1_crop数据上，最终符合要求的只有731750张</p>
+<p>重新生成眼睛宽度估算文件，其分布如下</p>
+<table>
+<thead>
+<tr>
+<th>eye_width</th>
+<th>num</th>
+<th>eye_width</th>
+<th>num</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0~10</td>
+<td>1,8975</td>
+<td>100~110</td>
+<td>98</td>
+</tr>
+<tr>
+<td>10~20</td>
+<td>71,3760</td>
+<td>110~120</td>
+<td>17</td>
+</tr>
+<tr>
+<td>20~30</td>
+<td>126,4102</td>
+<td>120~130</td>
+<td>3</td>
+</tr>
+<tr>
+<td>30~40</td>
+<td>226,4348</td>
+<td>130~140</td>
+<td>0</td>
+</tr>
+<tr>
+<td>40~50</td>
+<td>59,3351</td>
+<td>140~150</td>
+<td>0</td>
+</tr>
+<tr>
+<td>50~60</td>
+<td>10,6502</td>
+<td>150~160</td>
+<td>0</td>
+</tr>
+<tr>
+<td>60~70</td>
+<td>2,4588</td>
+<td>160~170</td>
+<td>1</td>
+</tr>
+<tr>
+<td>70~80</td>
+<td>5592</td>
+<td>170~180</td>
+<td>0</td>
+</tr>
+<tr>
+<td>80~90</td>
+<td>1588</td>
+<td>180~190</td>
+<td>8</td>
+</tr>
+<tr>
+<td>90~100</td>
+<td>421</td>
+<td>190~200</td>
+<td>21</td>
+</tr>
+</tbody>
+</table>
+<p><img src="C:\Users\lc\Desktop\test_crop\all\figure2.png" alt="figure2"></p>
+<p>2.tripletloss在100次迭代时，loss=nan，原因是初始化的base_lr过大，调小即可<br>3.test的accuracy一直为0：想到了在清洗数据的时候，有的人物并没有参与，也就是最开始直接用小蔓师兄的标签不行，最后一层的输出不等于我现在数据中的样本类别数。。得自己重新生成，首先要将空目录删除，确定有多少类别，然后label从0开始重新生成。<br>最后发现我的类别应该是90481.而最后一个全连接层的num_output=90526</p>
+
       
     </div>
 
@@ -462,8 +657,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/images.jpg"
@@ -478,7 +682,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -500,7 +704,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -579,6 +783,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
