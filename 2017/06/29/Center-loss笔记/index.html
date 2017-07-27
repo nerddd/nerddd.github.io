@@ -92,7 +92,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="深度学习，论文笔记," />
 
 
 
@@ -110,16 +110,19 @@
 
 
 
-<meta name="description" content="学习博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="calyp.github.io/tags/index.html">
+<meta name="description" content="论文：A Discriminative Feature Learning Approach for Deep Face Recognition 摘要对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应">
+<meta name="keywords" content="深度学习，论文笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Center loss笔记">
+<meta property="og:url" content="calyp.github.io/2017/06/29/Center-loss笔记/index.html">
 <meta property="og:site_name" content="Calyp">
-<meta property="og:description" content="学习博客">
-<meta property="og:updated_time" content="2017-05-31T12:20:34.309Z">
+<meta property="og:description" content="论文：A Discriminative Feature Learning Approach for Deep Face Recognition 摘要对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应">
+<meta property="og:image" content="https://static.leiphone.com/uploads/new/article/740_740/201612/585bb8742235c.png?imageMogr2/format/jpg/quality/90">
+<meta property="og:updated_time" content="2017-06-30T12:19:30.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="学习博客">
+<meta name="twitter:title" content="Center loss笔记">
+<meta name="twitter:description" content="论文：A Discriminative Feature Learning Approach for Deep Face Recognition 摘要对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应">
+<meta name="twitter:image" content="https://static.leiphone.com/uploads/new/article/740_740/201612/585bb8742235c.png?imageMogr2/format/jpg/quality/90">
 
 
 
@@ -147,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="calyp.github.io/tags/"/>
+  <link rel="canonical" href="calyp.github.io/2017/06/29/Center-loss笔记/"/>
 
 
 
 
 
-  <title>tags | Calyp</title>
+  <title>Center loss笔记 | Calyp</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -179,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -294,25 +297,176 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="calyp.github.io/2017/06/29/Center-loss笔记/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calyp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/images.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calyp">
+    </span>
 
     
-    
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            11 tags in total
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Center loss笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-29T17:05:51+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Face/" itemprop="url" rel="index">
+                    <span itemprop="name">Face</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
-        <div class="tag-cloud-tags">
-          <a href="/tags/Face/" style="font-size: 12px; color: #ccc">Face</a> <a href="/tags/Hexo/" style="font-size: 12px; color: #ccc">Hexo</a> <a href="/tags/Python/" style="font-size: 12px; color: #ccc">Python</a> <a href="/tags/caffe/" style="font-size: 12px; color: #ccc">caffe</a> <a href="/tags/深度学习/" style="font-size: 12px; color: #ccc">深度学习</a> <a href="/tags/深度学习，人脸识别/" style="font-size: 12px; color: #ccc">深度学习，人脸识别</a> <a href="/tags/深度学习，论文笔记/" style="font-size: 12px; color: #ccc">深度学习，论文笔记</a> <a href="/tags/神经网络/" style="font-size: 12px; color: #ccc">神经网络</a> <a href="/tags/笔记/" style="font-size: 12px; color: #ccc">笔记</a> <a href="/tags/笔记，人脸识别/" style="font-size: 12px; color: #ccc">笔记，人脸识别</a> <a href="/tags/调参/" style="font-size: 12px; color: #ccc">调参</a>
-        </div>
-      </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>论文：<a href="https://link.springer.com/chapter/10.1007%2F978-3-319-46478-7_31" target="_blank" rel="external">A Discriminative Feature Learning Approach for Deep Face Recognition</a></p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应的类中心的距离（the center loss simultaneously learns a center for deep<br>features of each class and penalizes the distances between the deep features and their corresponding class centers）。将softmax和center loss联合起来，可以训练一个健壮的CNN来获取深层特征的两个关键目标，类内紧凑和类间分散。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>预先收集所有可能的测试身份用于训练是不现实的，所以CNN的标签预测并不总是适用的。经过深层网络获取得到的特征不仅需要可分开性(separable)，更需要识别性(discriminative)和广义性，足够用来识别新的没有遇见过的类。可识别性的特征可以利用最邻近(NN)或k-NN算法很好的分类，就没有必要依赖标签预测了。但是softmax只能产生可分开(separable)特征，结果特征就不足以用以人脸识别。</p>
+<p><img src="https://static.leiphone.com/uploads/new/article/740_740/201612/585bb8742235c.png?imageMogr2/format/jpg/quality/90" alt="Separabale Feature Vs Discriminative Feature"></p>
+<p>因为随机梯度下降(SGD)优化CNN是基于mini-batch，不能很好的反映深层特征的全局分布，由于训练集的庞大，在每次迭代中输入所有的训练样本是不现实的。constractive loss和triplet loss分别作为图像对和三元组的loss函数。然而，与图像样本相比，训练图像对或三元组的数量显著增长，导致收敛缓慢和不稳定性。仔细选择图像对或者三元组，问题可能会部分缓解，但是它增加了计算复杂度，训练过程变得不方便。为了解决这个问题，提出center loss，用于有效的增强特征的可识别性，我们将会得到每个类的深层特征的中心。在训练阶段，我们同时更新中心和最小化特征和它们相应的类中心的距离。CNN同时在softmax loss和center loss的监督下进行训练，通过一个超参来平衡这两个监督信号。直觉上，softmax loss将不同类别的特征分开，center loss有效的将同一类别的特征拉向类的中心，使得类内特征分布变得紧凑。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习，论文笔记/" rel="tag"># 深度学习，论文笔记</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/FaceNet论文笔记/" rel="next" title="FaceNet论文笔记">
+                <i class="fa fa-chevron-left"></i> FaceNet论文笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/04/DeepID3论文笔记/" rel="prev" title="DeepID3论文笔记">
+                DeepID3论文笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -344,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/images.jpg"
@@ -462,6 +625,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -574,6 +753,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
