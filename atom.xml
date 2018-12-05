@@ -396,7 +396,7 @@
     <link href="calyp.github.io/2017/06/29/Center-loss%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/06/29/Center-loss笔记/</id>
     <published>2017-06-29T09:05:51.000Z</published>
-    <updated>2018-12-05T09:22:53.415Z</updated>
+    <updated>2018-12-05T09:29:14.096Z</updated>
     
     <content type="html"><![CDATA[<p>论文：<a href="https://link.springer.com/chapter/10.1007%2F978-3-319-46478-7_31" target="_blank" rel="external">A Discriminative Feature Learning Approach for Deep Face Recognition</a></p>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应的类中心的距离（the center loss simultaneously learns a center for deep<br>features of each class and penalizes the distances between the deep features and their corresponding class centers）。将softmax和center loss联合起来，可以训练一个健壮的CNN来获取深层特征的两个关键目标，类内紧凑和类间分散。</p>
@@ -411,7 +411,7 @@
     
     </summary>
     
-      <category term="Face，论文笔记" scheme="calyp.github.io/categories/Face%EF%BC%8C%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+      <category term="论文笔记" scheme="calyp.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
       <category term="深度学习，论文笔记" scheme="calyp.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
@@ -423,7 +423,7 @@
     <link href="calyp.github.io/2017/06/28/FaceNet%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/06/28/FaceNet论文笔记/</id>
     <published>2017-06-28T02:11:42.000Z</published>
-    <updated>2018-12-05T09:23:09.230Z</updated>
+    <updated>2018-12-05T09:29:09.723Z</updated>
     
     <content type="html"><![CDATA[<p><em>原文链接</em>:<a href="https://arxiv.org/abs/1503.03832" target="_blank" rel="external">FaceNet:A unified embedding for face recognition and clustering</a></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FaceNet，可以直接将人脸图像映射到欧几里得空间，空间距离的长度代表了人脸图像的相似性，只要该映射空间生成，人脸识别、验证和聚类等任务就可以轻松完成。FaceNet在LFW数据集上的准确率为99.63%，在YouTube Faces 数据集上准确率为95.12%。</p>
@@ -453,7 +453,7 @@
     
     </summary>
     
-      <category term="Face，论文笔记" scheme="calyp.github.io/categories/Face%EF%BC%8C%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+      <category term="论文笔记" scheme="calyp.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
       <category term="笔记，人脸识别" scheme="calyp.github.io/tags/%E7%AC%94%E8%AE%B0%EF%BC%8C%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>
@@ -565,7 +565,7 @@
     <link href="calyp.github.io/2017/06/02/Triplet%20loss/"/>
     <id>calyp.github.io/2017/06/02/Triplet loss/</id>
     <published>2017-06-02T12:26:35.000Z</published>
-    <updated>2018-12-05T09:23:23.245Z</updated>
+    <updated>2018-12-05T09:29:18.170Z</updated>
     
     <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
 <p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
@@ -583,7 +583,7 @@
     
     </summary>
     
-      <category term="Face，论文笔记" scheme="calyp.github.io/categories/Face%EF%BC%8C%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+      <category term="论文笔记" scheme="calyp.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     
     
       <category term="深度学习，人脸识别" scheme="calyp.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%8C%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/"/>

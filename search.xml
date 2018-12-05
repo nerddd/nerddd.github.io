@@ -61,7 +61,7 @@
     <url>%2F2017%2F06%2F29%2FCenter-loss%E7%AC%94%E8%AE%B0%2F</url>
     <content type="text"><![CDATA[论文：A Discriminative Feature Learning Approach for Deep Face Recognition 摘要对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应的类中心的距离（the center loss simultaneously learns a center for deepfeatures of each class and penalizes the distances between the deep features and their corresponding class centers）。将softmax和center loss联合起来，可以训练一个健壮的CNN来获取深层特征的两个关键目标，类内紧凑和类间分散。 介绍预先收集所有可能的测试身份用于训练是不现实的，所以CNN的标签预测并不总是适用的。经过深层网络获取得到的特征不仅需要可分开性(separable)，更需要识别性(discriminative)和广义性，足够用来识别新的没有遇见过的类。可识别性的特征可以利用最邻近(NN)或k-NN算法很好的分类，就没有必要依赖标签预测了。但是softmax只能产生可分开(separable)特征，结果特征就不足以用以人脸识别。 因为随机梯度下降(SGD)优化CNN是基于mini-batch，不能很好的反映深层特征的全局分布，由于训练集的庞大，在每次迭代中输入所有的训练样本是不现实的。constractive loss和triplet loss分别作为图像对和三元组的loss函数。然而，与图像样本相比，训练图像对或三元组的数量显著增长，导致收敛缓慢和不稳定性。仔细选择图像对或者三元组，问题可能会部分缓解，但是它增加了计算复杂度，训练过程变得不方便。为了解决这个问题，提出center loss，用于有效的增强特征的可识别性，我们将会得到每个类的深层特征的中心。在训练阶段，我们同时更新中心和最小化特征和它们相应的类中心的距离。CNN同时在softmax loss和center loss的监督下进行训练，通过一个超参来平衡这两个监督信号。直觉上，softmax loss将不同类别的特征分开，center loss有效的将同一类别的特征拉向类的中心，使得类内特征分布变得紧凑。]]></content>
       <categories>
-        <category>Face，论文笔记</category>
+        <category>论文笔记</category>
       </categories>
       <tags>
         <tag>深度学习，论文笔记</tag>
@@ -72,7 +72,7 @@
     <url>%2F2017%2F06%2F28%2FFaceNet%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%2F</url>
     <content type="text"><![CDATA[原文链接:FaceNet:A unified embedding for face recognition and clustering 简介FaceNet，可以直接将人脸图像映射到欧几里得空间，空间距离的长度代表了人脸图像的相似性，只要该映射空间生成，人脸识别、验证和聚类等任务就可以轻松完成。FaceNet在LFW数据集上的准确率为99.63%，在YouTube Faces 数据集上准确率为95.12%。 前言FaceNet采用的是通过卷积神经网络学习将图像映射到欧几里得空间，空间距离之间和图片相似度相关：同一个人的不同图像的空间距离很小，不同人的图像的空间距离较大，只要该映射确定下来，相关的人脸识别任务就变得简单。 当前存在的基于深度神经网络的人脸识别模型使用了分类层：中间层为人脸图像的向量映射，然后以分类层作为输出层，这类方法的缺点就是不直接和效率不高。与当前方法不同，FaceNet直接使用基于triplets的LMNN（最大边界近邻分类）的loss函数训练神经网络，网络直接输出为128维度的向量空间。选取的triplets包含两个匹配脸部缩略图（为紧密裁剪的脸部区域，不用使用2d、3d对齐以及放大转换等预处理）和一个非匹配的脸部缩略图，loss函数目标是通过距离边界区分正负类。 本文中，探索了两类深度卷积神经网络，第一类为Zeiler&amp;Fergus研究中使用的神经网络，包含多个交错的卷积层、非线性激励函数，局部相应归一化和最大池化层。我们额外的添加了一些1x1xd的卷积层。第二种结构是基于Inception model，这种网络利用了一些不同的卷积层和池化层并行和级联响应。我们发现这些模型可以减小20倍以上的参数数量，并且可能会减少FLOPS数量。 triplet loss的启发是传统loss函数趋向于将有一类特征的人脸图像映射到同一个空间，而triplet loss尝试将一个个体的人脸图像和其他人脸图像分开。 总结 三元组的目标函数并不是这篇论文首创，我在之前的一些Hash索引的论文中也见过相似的应用。可见，并不是所有的学习特征的模型都必须用softmax。用其他的效果也会好。 三元组比softmax的优势在于 softmax不直接，（三元组直接优化距离），因而性能也不好。 softmax产生的特征表示向量都很大，一般超过1000维。 FaceNet并没有像DeepFace和DeepID那样需要对齐。 FaceNet得到最终表示后不用像DeepID那样需要再训练模型进行分类，直接计算距离就好了，简单而有效。 论文并未探讨二元对的有效性，直接使用的三元对。 参考文献谷歌人脸识别系统FaceNet解析 FaceNet–Google的人脸识别]]></content>
       <categories>
-        <category>Face，论文笔记</category>
+        <category>论文笔记</category>
       </categories>
       <tags>
         <tag>笔记，人脸识别</tag>
@@ -103,7 +103,7 @@
     <url>%2F2017%2F06%2F02%2FTriplet%20loss%2F</url>
     <content type="text"><![CDATA[原理Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。 Triplet loss中的margin取值分析我们的目的是为了让loss在训练迭代中下降的越小越好，即使Anchor和Positive越接近越好，Anchor和Negative越远越好，并且要让x_a与x_n之间的距离和x_a与x_p之间的距离之间有一个最小的间隔。简而言之，Triplet loss就是要使类内距离越小，类间距离越大。 12345当 margin 值越小时，loss 也就较容易的趋近于 0，于是 Anchor 与 Positive 都不需要拉的太近，Anchor 与 Negative 不需要拉的太远，就能使得 loss 很快的趋近于 0。这样训练得到的结果，不能够很好的区分相似的图像。当 Anchor 越大时，就需要使得网络参数要拼命地拉近 Anchor、Positive 之间的距离，拉远 Anchor、Negative 之间的距离。如果 margin 值设置的太大，很可能最后 loss 保持一个较大的值，难以趋近于 0 。因此，设置一个合理的 margin 值很关键，这是衡量相似度的重要指标。简而言之，margin 值设置的越小，loss 很容易趋近于 0 ，但很难区分相似的图像。margin 值设置的越大，loss 值较难趋近于 0，甚至导致网络不收敛，但可以较有把握的区分较为相似的图像。 相关区分相似图形，除了triplet loss，还有一篇CVPR：《Deep Relative Distance Learning: Tell the Difference Between Similar Vehicles》提出的Coupled Cluster Loss. 本文参考： triplet loss 原理以及梯度推导 如何在Caffe中增加layer以及Caffe中triplet loss layer的实现]]></content>
       <categories>
-        <category>Face，论文笔记</category>
+        <category>论文笔记</category>
       </categories>
       <tags>
         <tag>深度学习，人脸识别</tag>
