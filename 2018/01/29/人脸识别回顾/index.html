@@ -73,7 +73,7 @@
 <meta property="og:url" content="calyp.github.io/2018/01/29/人脸识别回顾/index.html">
 <meta property="og:site_name" content="Calyp">
 <meta property="og:description" content="数据准备数据清洗：去除错误标签，图片质量不好的样本，如果有benchmark，还需要去除和benchmark重复的样本。 构造验证集:  对于给定的数据集，可能没有划分train set和validation set ，需要手动从给定的训练集中按照一定的比例分离出验证集（比如9:1） 数据均衡：数据集可能存在类别不均衡的问题，可以通过重新组合不均衡数据, 使之均衡，方式一: 复制或者合成（比如ji">
-<meta property="og:updated_time" content="2018-12-05T07:59:42.896Z">
+<meta property="og:updated_time" content="2018-12-05T08:38:02.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸识别回顾">
 <meta name="twitter:description" content="数据准备数据清洗：去除错误标签，图片质量不好的样本，如果有benchmark，还需要去除和benchmark重复的样本。 构造验证集:  对于给定的数据集，可能没有划分train set和validation set ，需要手动从给定的训练集中按照一定的比例分离出验证集（比如9:1） 数据均衡：数据集可能存在类别不均衡的问题，可以通过重新组合不均衡数据, 使之均衡，方式一: 复制或者合成（比如ji">
@@ -385,10 +385,8 @@
 <p><strong>数据均衡</strong>：数据集可能存在类别不均衡的问题，可以通过重新组合不均衡数据, 使之均衡，方式一: 复制或者合成（比如jitter操作）少数部分的样本, 使之和多数部分差不多数量； 方式二: 砍掉一些多数部分, 使两者数量差不多</p>
 <p><strong>数据扩充</strong>：对于一些样本数据比较少的数据集，为了更好的训练网络，有时候需要人为增加一些训练样本，比如随机的剪裁、缩放和旋转等。</p>
 <p><strong>预处理</strong>：常见的就是减均值、除方差。</p>
-<h1 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h1><p>##1. 模型选择：</p>
-<p>根据具体任务和数据集规模选择合适的网络结构，对于分类任务来说，如果数据集的规模不大，则网络的层数不应太深，结构也不应太复杂。</p>
-<p>##2. 激励函数的选择</p>
-<ul>
+<h1 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h1><h2 id="1-模型选择："><a href="#1-模型选择：" class="headerlink" title="1. 模型选择："></a>1. 模型选择：</h2><p>根据具体任务和数据集规模选择合适的网络结构，对于分类任务来说，如果数据集的规模不大，则网络的层数不应太深，结构也不应太复杂。</p>
+<h2 id="2-激励函数的选择"><a href="#2-激励函数的选择" class="headerlink" title="2. 激励函数的选择"></a>2. 激励函数的选择</h2><ul>
 <li><p><strong>sigmoid函数</strong>：取值范围为(0,1)，可以将一个实数映射到(0,1)的区间，可以用来做二分类，在特征相差比较复杂或是相差不是特别大时效果比较好，缺点是：激活函数计算量大，反向传播求梯度时，求导涉及除法，反向传播时，很容易出现梯度消失的情况</p>
 </li>
 <li><p><strong>Tanh函数</strong>：取值范围为[-1,1]，在特征相差明显时的效果会很好，在循环过程中会不断扩大特征效果，与sigmoid的区别是,tanh是0均值的，因此实际应用中，tanh会比sigmoid更好。</p>
@@ -399,14 +397,11 @@
 <p><strong>详细细节请参看</strong>：<a href="https://www.jianshu.com/p/22d9720dbf1a" target="_blank" rel="external">常用激活函数比较</a></p>
 </li>
 </ul>
-<p>##3. 卷积tricks</p>
-<p>图片输入是2的幂次方，例如32、64、96、224等。</p>
+<h2 id="3-卷积tricks"><a href="#3-卷积tricks" class="headerlink" title="3. 卷积tricks"></a>3. 卷积tricks</h2><p>图片输入是2的幂次方，例如32、64、96、224等。</p>
 <p>卷积核大小是3<em>3或者5</em>5。</p>
 <p>输入图片上下左右需要用0补充，即padding，且假如卷积核大小是5，那么padding就是2（图片左右上下都补充2）；卷积核大小是3，padding大小就是1。</p>
-<p>##4. pooling层tricks</p>
-<p>poolin层也能防止过拟合，使用overlapped pooling，即用来池化的数据有重叠，但是pooling的大小不要超过3。max pooling比avg pooling效果会好一些。avg-global pooling进入全卷积时代。</p>
-<p>##5. Loss函数的选择</p>
-<ul>
+<h2 id="4-pooling层tricks"><a href="#4-pooling层tricks" class="headerlink" title="4. pooling层tricks"></a>4. pooling层tricks</h2><p>poolin层也能防止过拟合，使用overlapped pooling，即用来池化的数据有重叠，但是pooling的大小不要超过3。max pooling比avg pooling效果会好一些。avg-global pooling进入全卷积时代。</p>
+<h2 id="5-Loss函数的选择"><a href="#5-Loss函数的选择" class="headerlink" title="5. Loss函数的选择"></a>5. Loss函数的选择</h2><ul>
 <li><p><strong>softmax loss</strong></p>
 </li>
 <li><p>contrastive loss</p>
@@ -568,8 +563,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/17/文档归类/" rel="next" title="文档归类">
-                <i class="fa fa-chevron-left"></i> 文档归类
+              <a href="/2017/07/04/DeepID3论文笔记/" rel="next" title="DeepID3论文笔记">
+                <i class="fa fa-chevron-left"></i> DeepID3论文笔记
               </a>
             
           </div>
@@ -652,7 +647,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -763,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据准备"><span class="nav-number">1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练模型"><span class="nav-number">2.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络的设计模式"><span class="nav-number">3.</span> <span class="nav-text">神经网络的设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Caffe调参"><span class="nav-number">4.</span> <span class="nav-text">Caffe调参</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别流程"><span class="nav-number">5.</span> <span class="nav-text">人脸识别流程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据准备"><span class="nav-number">1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练模型"><span class="nav-number">2.</span> <span class="nav-text">训练模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-模型选择："><span class="nav-number">2.1.</span> <span class="nav-text">1. 模型选择：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-激励函数的选择"><span class="nav-number">2.2.</span> <span class="nav-text">2. 激励函数的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-卷积tricks"><span class="nav-number">2.3.</span> <span class="nav-text">3. 卷积tricks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-pooling层tricks"><span class="nav-number">2.4.</span> <span class="nav-text">4. pooling层tricks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Loss函数的选择"><span class="nav-number">2.5.</span> <span class="nav-text">5. Loss函数的选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络的设计模式"><span class="nav-number">3.</span> <span class="nav-text">神经网络的设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Caffe调参"><span class="nav-number">4.</span> <span class="nav-text">Caffe调参</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#人脸识别流程"><span class="nav-number">5.</span> <span class="nav-text">人脸识别流程</span></a></li></ol></div>
             
 
           </div>
