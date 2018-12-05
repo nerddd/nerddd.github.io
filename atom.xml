@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="calyp.github.io/"/>
-  <updated>2018-02-05T09:10:20.415Z</updated>
+  <updated>2018-04-27T03:17:55.615Z</updated>
   <id>calyp.github.io/</id>
   
   <author>
@@ -16,11 +16,70 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>手册&amp;指南</title>
+    <link href="calyp.github.io/2018/04/27/%E6%89%8B%E5%86%8C&amp;%E6%8C%87%E5%8D%97/"/>
+    <id>calyp.github.io/2018/04/27/手册&amp;指南/</id>
+    <published>2018-04-27T01:32:52.000Z</published>
+    <updated>2018-04-27T03:17:55.615Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux操作相关"><a href="#Linux操作相关" class="headerlink" title="Linux操作相关"></a>Linux操作相关</h1><p>##基本操作<br><strong>打包</strong>：<br>​       <code>tar -cvf xx.tar xxx</code><br>​       <code>tar zcvf xx.tar.gz xx</code><br><strong>解压</strong>：<br>       <code>tar zxvf xx.tar.gz</code><br>       <code>tar xvf xx.tar</code><br>       <code>tar jxvf xx.tar.bz2</code><br>       <code>bzip2 -d xx.bz2</code><br><strong>创建目录xx</strong>：<code>mkdir xx</code><br><strong>创建目录a及以下子目录b</strong>:<code>mkdir -p a/b</code><br><strong>创建xx文件</strong>:<code>touch xx</code><br><strong>查看xx文件</strong>:<code>cat xx</code><br><strong>查看xx文件</strong>:<code>less xx</code>(内容多于一屏时，j/k向下/上翻滚)<br><strong>显示绝对路径</strong>：<code>pwd</code><br><strong>删除空目录</strong>：<code>rmdir</code><br><strong>删除xx文件</strong>：<code>rm xx</code><br><strong>强制删除目录a</strong>:<code>rm -rf a</code><br><strong>删除目录a</strong>:<code>rm -r a</code><br><strong>删除父目录a中所有的空子目录</strong>：<code>cd a; rmdir</code><br><strong>复制文件a到文件b</strong>：<code>cp a b</code><br><strong>复制目录a为目录b</strong>：<code>cp -r a/ b/</code><br><strong>从指定文件搜索指定文件</strong>：<code>grep &#39;指定内容&#39; ./ -R</code><br><strong>下载文件到xx目录</strong>：<code>axel http://... -o xx</code><br><strong>给文件a.c加执行权限</strong>：<code>chmod +x a.c</code><br><strong>运行脚本xx.sh</strong>:<code>sh xx.sh</code><br><strong>使.bashrc生效</strong>：<code>source ~/.bashrc</code><br><strong>查看opencv版本</strong>：<code>pkg-config --modversion opencv</code><br><strong>查看opencv安装位置</strong>：<code>pkg-config -cflags opencv</code><br><strong>查找</strong>：<code>grep -n -H -R &quot;you want to search &quot; *</code><br><strong>查看文件夹大小</strong>：<code>du -sh</code><br><strong>查看文件夹大小并排序</strong>：<code>du -h /home/* | sort</code><br><strong>查看文件夹大小</strong>：<code>du -h --max-depth=1 ./</code><br><strong>查看磁盘的使用情况</strong>：<code>df -h</code><br><strong>查看权限</strong>：<code>ls -l filaname</code><br><strong>查看GPU使用率</strong>：<code>nvidia-smi</code><br><strong>查看CPU使用率</strong>：<code>top</code><br><strong>查看文件夹内文件个数</strong>：<code>ls -l | grep &#39;^-&#39; | wc -l</code><br><strong>查看文件夹内目录个数</strong>：<code>ls -l | grep &#39;^d&#39; | wc -l</code><br><strong>查看文件行数</strong>：<code>wc -l filename</code><br><strong>批量更改图片尺寸</strong>：<code>mogrify -resize 224x224 -format jpg *</code></p>
+<p><strong>查看网络设置</strong>：<code>ifconfig</code><br><strong>查看操作系统</strong>：<code>uname -a</code><br><strong>查看ubuntu版本</strong>：<code>lsb_release -a</code><br><strong>查看操作系统位数</strong>：getconf LONG_BIT<br><strong>查看gcc版本</strong>：<code>ls /usr/bin/gcc*或gcc -v</code><br><strong>查看磁盘使用情况</strong>：<code>baobab</code><br><strong>添加用户</strong>：<code>sudo adduser username</code><br><strong>删除用户</strong>: <code>sudo userdel -r username</code><br><strong>添加sudo权限</strong>：<code>sudo vi /etc/sudoers</code></p>
+<p><strong>显示终端上所有进程</strong>：<code>ps -a</code><br><strong>查看进程所有者及其他详细信息</strong>：<code>ps -u</code><br><strong>杀掉某进程</strong>：<code>kill -SIGKILL 进程号</code><br><strong>查看使用apt-get的进程</strong>：<code>ps -aux | grep &#39;apt-get&#39;</code><br><strong>进程暂停</strong>：<code>kill -STOP pid</code><br><strong>进程重启</strong>：<code>kill -CONT pid</code></p>
+<p><strong>替换gcc版本</strong>：<br><code>sudo apt-get install gcc-4.9 gcc-4.9-multilib g++-4.9 g++-4.9-multilib</code><br><code>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 40</code><br><code>sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5.4 50</code><br><code>sudo update-alternatives --config gcc</code><br><code>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50</code><br><code>sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 40</code><br><code>sudo update-alternatives --remove gcc /usr/bin/gcc-4.9</code></p>
+<p><strong>查找命令：</strong></p>
+<blockquote>
+<ul>
+<li>find . -name ‘my*’：搜索当前目录（含子目录，以下同）中，所有文件名以my开头的文</li>
+<li>locate ~/m ：搜索用户主目录下，所有以m开头的文件</li>
+<li>locate -i ~/m：搜索用户主目录下，所有以m开头的文件，并且忽略大小写</li>
+<li>whereis命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息</li>
+<li>which命令的作用是，在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令</li>
+</ul>
+</blockquote>
+<p><strong>Zip相关</strong>：</p>
+<blockquote>
+<ul>
+<li>把一个文件abc.txt和一个目录dir1压缩成为yasuo.zip：zip -r yasuo.zip abc.txt dir1</li>
+<li>下载了一个yasuo.zip文件，想解压缩：unzip yasuo.zip</li>
+<li>当前目录下有abc1.zip，abc2.zip和abc3.zip，一起解压缩它们：unzip abc\?.zip(注释：?表示一个字符，如果用*表示任意多个字符。)</li>
+<li>有一个很大的压缩文件large.zip，不想解压缩，只想看看它里面有什么：unzip -v large.zip</li>
+<li>下载了一个压缩文件large.zip，想验证一下这个压缩文件是否下载完全了: unzip -t large.zip</li>
+<li>用-v选项发现music.zip压缩文件里面有很多目录和子目录，并且子目录中其实都是歌曲mp3文件，把这些文件都下载到第一级目录，而不是一层一层建目录： unzip -j music.zip</li>
+</ul>
+</blockquote>
+<h1 id="Vim相关"><a href="#Vim相关" class="headerlink" title="Vim相关"></a>Vim相关</h1><p><strong>跳转到指令行</strong>：在命令行模式下输入  “:行号”<br><strong>查找字符串</strong>：在命令行模式下输入 “/字符串”，按“n”键查找下一个<br><strong>批量替换</strong>：在命令行模式下输入 “:%s#abc#def#g”   将def替换abc<br><strong>批量注释</strong>：ctrl+v进入列模式，大写I进入插入模式，输入注释符//或#,连按两次esc。<br><strong>取消批量注释</strong>：Ctrl + v 进入块选择模式，选中你要删除的行首的注释符号，注意// 要选中两个，选好之后按d即可删除注释</p>
+<h1 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h1><p><strong>查看显卡驱动信息</strong>：cat /proc/driver/nvidia/version<br><strong>查询合适的驱动版本xxx</strong>: <a href="https://www.geforce.com/drivers" target="_blank" rel="external">https://www.geforce.com/drivers</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove --purge nvidia-*</div><div class="line">sudo add-apt-repository ppa:graphics-drivers/ppa</div><div class="line">sudo apt-get update</div><div class="line">sudo service lightdm stop</div><div class="line">sudo apt-get install nvidia-XXX</div><div class="line">sudo service lightdm start</div><div class="line">sudo reboot</div><div class="line">lsmod | grep nvidia   #查看驱动状态是否正常</div></pre></td></tr></table></figure></p>
+<h1 id="Matlab相关"><a href="#Matlab相关" class="headerlink" title="Matlab相关"></a>Matlab相关</h1><p>后台运行：nohup matlab -nojvm -nodisplay -nosplash &lt; matlabscript.m 1&gt;running.log 2&gt;running.err &amp;</p>
+<h1 id="Python相关"><a href="#Python相关" class="headerlink" title="Python相关"></a>Python相关</h1><p>##路径<br>import os<br>先定义一个带路径的文件<br>filename = “/home/mydir/test.txt”<br>将文件路径分割出来<br>file_dir = os.path.split(filename )[0]<br>判断文件路径是否存在，如果不存在，则创建，此处是创建多级目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if not os.path.isdir(file_dir):</div><div class="line">    os.makedirs(file_dir)</div></pre></td></tr></table></figure></p>
+<p>然后再判断文件是否存在，如果不存在，则创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if not os.path.exists(filename ):</div><div class="line">    os.system(r&apos;touch %s&apos; % filename)</div></pre></td></tr></table></figure></p>
+<h1 id="git相关"><a href="#git相关" class="headerlink" title="git相关"></a>git相关</h1><p>设置Git的user name和email</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;yourname&quot;</div><div class="line">git config --global user.email &quot;youremail&quot;</div></pre></td></tr></table></figure>
+<p>生成SSH密钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">查看是否已经有了ssh密钥：cd ~/.ssh</div><div class="line">如果没有密钥则不会有此文件夹，有则备份删除</div><div class="line">生存密钥：</div><div class="line">ssh-keygen -t rsa -C “haiyan.xu.vip@gmail.com”</div><div class="line">按3个回车，密码为空。</div><div class="line">Your identification has been saved in /home/tekkub/.ssh/id_rsa.</div><div class="line">Your public key has been saved in /home/tekkub/.ssh/id_rsa.pub.</div><div class="line">The key fingerprint is:</div><div class="line">………………</div><div class="line">最后得到了两个文件：id_rsa和id_rsa.pub</div></pre></td></tr></table></figure>
+<p>添加密钥到ssh：ssh-add 文件名,需要之前输入密码.</p>
+<p>在github上添加ssh密钥，这要添加的是“id_rsa.pub”里面的公钥。</p>
+<p>从本地上传到github:<br>git init<br>git remote add origin <a href="https://github.com/nerddd/text.git" target="_blank" rel="external">https://github.com/nerddd/text.git</a>  </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Linux操作相关&quot;&gt;&lt;a href=&quot;#Linux操作相关&quot; class=&quot;headerlink&quot; title=&quot;Linux操作相关&quot;&gt;&lt;/a&gt;Linux操作相关&lt;/h1&gt;&lt;p&gt;##基本操作&lt;br&gt;&lt;strong&gt;打包&lt;/strong&gt;：&lt;br&gt;​       
+    
+    </summary>
+    
+      <category term="技能" scheme="calyp.github.io/categories/%E6%8A%80%E8%83%BD/"/>
+    
+    
+      <category term="工具" scheme="calyp.github.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>人脸识别回顾</title>
     <link href="calyp.github.io/2018/01/29/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%9B%9E%E9%A1%BE/"/>
     <id>calyp.github.io/2018/01/29/人脸识别回顾/</id>
     <published>2018-01-29T01:47:23.000Z</published>
-    <updated>2018-02-05T09:10:20.415Z</updated>
+    <updated>2018-02-05T09:10:20.416Z</updated>
     
     <content type="html"><![CDATA[<h1 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h1><p><strong>数据清洗</strong>：去除错误标签，图片质量不好的样本，如果有benchmark，还需要去除和benchmark重复的样本。</p>
 <p><strong>构造验证集</strong>:  对于给定的数据集，可能没有划分train set和validation set ，需要手动从给定的训练集中按照一定的比例分离出验证集（比如9:1）</p>
@@ -216,7 +275,7 @@
     <link href="calyp.github.io/2017/07/04/DeepID3%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/07/04/DeepID3论文笔记/</id>
     <published>2017-07-04T02:34:31.000Z</published>
-    <updated>2017-07-04T06:33:10.490Z</updated>
+    <updated>2017-07-04T06:33:10.491Z</updated>
     
     <content type="html"><![CDATA[<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>深层的网络由于良好的学习能力，近年来在目标识别领域取得巨大成功，基于此，提出两个非常深的网络架构，DeepID3，这两个架构分别基于VGG net和GoogLeNet通过改进使之用于人脸识别。Joint face identification-verification supervisory signals are added to both intermediate and<br>final feature extraction layers during training.        </p>
 <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1>]]></content>
@@ -310,7 +369,7 @@
     <link href="calyp.github.io/2017/06/17/Caffe%E8%B0%83%E5%8F%82/"/>
     <id>calyp.github.io/2017/06/17/Caffe调参/</id>
     <published>2017-06-17T01:26:12.000Z</published>
-    <updated>2017-07-27T01:53:11.297Z</updated>
+    <updated>2018-04-27T01:42:38.843Z</updated>
     
     <content type="html"><![CDATA[<h1 id="loss为nan"><a href="#loss为nan" class="headerlink" title="loss为nan"></a>loss为nan</h1><p><strong>梯度爆炸</strong></p>
 <p><strong>原因</strong>：梯度变得非常大，使得学习过程难以继续</p>
@@ -361,7 +420,7 @@
     <link href="calyp.github.io/2017/06/09/Python/"/>
     <id>calyp.github.io/2017/06/09/Python/</id>
     <published>2017-06-09T12:52:56.000Z</published>
-    <updated>2017-06-14T01:51:24.227Z</updated>
+    <updated>2017-06-14T01:51:24.228Z</updated>
     
     <content type="html"><![CDATA[<h1 id="图像操作"><a href="#图像操作" class="headerlink" title="图像操作"></a>图像操作</h1><h2 id="关于PIL-image和skimage的图像处理"><a href="#关于PIL-image和skimage的图像处理" class="headerlink" title="关于PIL image和skimage的图像处理"></a>关于PIL image和skimage的图像处理</h2><h3 id="对skimage图像"><a href="#对skimage图像" class="headerlink" title="对skimage图像"></a>对skimage图像</h3><p>镜像处理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from skimage import io,transform</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import cv2</div><div class="line"></div><div class="line">img=io.imread(&quot;test.jpg&quot;)</div><div class="line">#img=transform.rotate(img,180)</div><div class="line">img=cv2.flip(img,1)</div><div class="line">plt.figure(&apos;skimage&apos;)</div><div class="line">plt.imshow(img)</div><div class="line">plt.show()</div><div class="line">print img.shape</div><div class="line">print(img.dtype)</div></pre></td></tr></table></figure>
@@ -411,7 +470,7 @@
     <link href="calyp.github.io/2017/06/02/Triplet%20loss/"/>
     <id>calyp.github.io/2017/06/02/Triplet loss/</id>
     <published>2017-06-02T12:26:35.000Z</published>
-    <updated>2017-06-02T13:09:42.119Z</updated>
+    <updated>2017-06-02T13:09:42.120Z</updated>
     
     <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
 <p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
@@ -441,7 +500,7 @@
     <link href="calyp.github.io/2017/06/02/Hexo%E7%9B%B8%E5%85%B3/"/>
     <id>calyp.github.io/2017/06/02/Hexo相关/</id>
     <published>2017-06-02T08:05:45.000Z</published>
-    <updated>2017-06-28T12:28:10.590Z</updated>
+    <updated>2017-06-28T12:28:10.591Z</updated>
     
     <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Hexo无法正常显示公式"><a href="#Hexo无法正常显示公式" class="headerlink" title="Hexo无法正常显示公式"></a>Hexo无法正常显示公式</h2><p>善用主题(theme)，以我使用的next主题为例，打开/themes/next/_config.yml文件，更改mathjax开关为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># MathJax Support</div><div class="line">mathjax:</div><div class="line">  enable: true</div><div class="line">  per_page: true</div></pre></td></tr></table></figure>
