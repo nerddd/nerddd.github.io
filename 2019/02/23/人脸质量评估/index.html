@@ -73,12 +73,12 @@
 <meta property="og:url" content="calyp.github.io/2019/02/23/人脸质量评估/index.html">
 <meta property="og:site_name" content="Calyp">
 <meta property="og:description" content="人脸图像质量评估">
-<meta property="og:image" content="g:/gitblog/source/images/QQ%E5%9B%BE%E7%89%8720190223195039.png">
-<meta property="og:updated_time" content="2019-02-23T12:18:36.136Z">
+<meta property="og:image" content="/images/QQ%E5%9B%BE%E7%89%8720190223195039.png">
+<meta property="og:updated_time" content="2019-02-23T12:20:56.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸质量评估">
 <meta name="twitter:description" content="人脸图像质量评估">
-<meta name="twitter:image" content="g:/gitblog/source/images/QQ%E5%9B%BE%E7%89%8720190223195039.png">
+<meta name="twitter:image" content="/images/QQ%E5%9B%BE%E7%89%8720190223195039.png">
 
 
 
@@ -397,7 +397,7 @@
 <li><p>对于标签为浮点数的数据集，最好用h5存储，存储时一定要注意数据存储的格式要一致</p>
 </li>
 <li><p>之前采用VGG作为basemodel，然后最后全连接层输出为1，接sigmoid，然后用EuclideanLoss作为监督信号，但是输出全部是0.5左右，本来以为是sigmoid的问题，因为当输入非常大或者非常小的时候，神经元的梯度是接近于0的，这一点特性不太好，其实只要最后一个全连接层接损失函数就好，只要迭代次数够多，最终全连接层的输出会慢慢收敛的，所以没必要硬加一个约束，可能还会起到不好的效果。但是VGG16的效果并不好，无论训练多久，其输出一直在0.5附近，经过分析，应该是发生了<strong>梯度弥散</strong>，可以加BatchNorm层，于是自己设计了一个浅层的模型做实验，发现最后的结果也非常好，和经过预训练的resnet18效果差不多，但是模型小多了，这说明可能这个简单的回归任务，只要参数和数据适配，训练参数设置合理，网络结构没有太大差别。</p>
-<p><img src="G:/gitblog/source/images/QQ%E5%9B%BE%E7%89%8720190223195039.png" alt="Q图片2019022319503"></p>
+<p><img src="/images/QQ%E5%9B%BE%E7%89%8720190223195039.png" alt="Q图片2019022319503"></p>
 </li>
 </ul>
 <ul>

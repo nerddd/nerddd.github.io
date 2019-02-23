@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="calyp.github.io/"/>
-  <updated>2019-02-23T12:18:36.136Z</updated>
+  <updated>2019-02-23T12:20:56.919Z</updated>
   <id>calyp.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="calyp.github.io/2019/02/23/%E4%BA%BA%E8%84%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/"/>
     <id>calyp.github.io/2019/02/23/人脸质量评估/</id>
     <published>2019-02-23T12:16:20.000Z</published>
-    <updated>2019-02-23T12:18:36.136Z</updated>
+    <updated>2019-02-23T12:20:56.919Z</updated>
     
     <content type="html"><![CDATA[<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><h3 id="数据标注"><a href="#数据标注" class="headerlink" title="数据标注"></a>数据标注</h3><p>利用2015年的一篇人脸图像质量评估论文<a href="https://ieeexplore.ieee.org/iel7/97/4358004/06877651.pdf" target="_blank" rel="external">Face Image Quality Assessment Based on Learning to Rank</a>提供的工具对数据图像数据集进行标注，人脸图像可以利用MTCNN 进行预处理，这里将人脸上下扩展了1/2，左右扩展了1/3，不进行对齐(不改变人脸的偏转角，因为这也属于图像质量评估的一个考察因素），该工具输出的值为0-100的整数值，此处将其归一化为[0,1]之间的实数值</p>
 <h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>在做回归问题时，特别是标签为浮点数时，最好不要使用lmdb数据格式，原始的caffe中lmdb好像对float支持不太友好，可以通过修改源码，参考链接：<a href="https://blog.csdn.net/change_things/article/details/74786185" target="_blank" rel="external">如何将float类型的特征数据存入lmdb</a>，但是此处可以换一个办法，利用hdf5存储，具体细节就不多讲了，但是有一个点要注意就是在读取数据的时候，</p>
@@ -33,7 +33,7 @@
 <li><p>对于标签为浮点数的数据集，最好用h5存储，存储时一定要注意数据存储的格式要一致</p>
 </li>
 <li><p>之前采用VGG作为basemodel，然后最后全连接层输出为1，接sigmoid，然后用EuclideanLoss作为监督信号，但是输出全部是0.5左右，本来以为是sigmoid的问题，因为当输入非常大或者非常小的时候，神经元的梯度是接近于0的，这一点特性不太好，其实只要最后一个全连接层接损失函数就好，只要迭代次数够多，最终全连接层的输出会慢慢收敛的，所以没必要硬加一个约束，可能还会起到不好的效果。但是VGG16的效果并不好，无论训练多久，其输出一直在0.5附近，经过分析，应该是发生了<strong>梯度弥散</strong>，可以加BatchNorm层，于是自己设计了一个浅层的模型做实验，发现最后的结果也非常好，和经过预训练的resnet18效果差不多，但是模型小多了，这说明可能这个简单的回归任务，只要参数和数据适配，训练参数设置合理，网络结构没有太大差别。</p>
-<p><img src="G:/gitblog/source/images/QQ%E5%9B%BE%E7%89%8720190223195039.png" alt="Q图片2019022319503"></p>
+<p><img src="/images/QQ%E5%9B%BE%E7%89%8720190223195039.png" alt="Q图片2019022319503"></p>
 </li>
 </ul>
 <ul>
