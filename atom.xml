@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="calyp.github.io/"/>
-  <updated>2019-02-26T08:48:34.626Z</updated>
+  <updated>2019-02-28T12:07:01.818Z</updated>
   <id>calyp.github.io/</id>
   
   <author>
@@ -16,25 +16,104 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>相关数学知识</title>
+    <link href="calyp.github.io/2019/02/28/%E7%9B%B8%E5%85%B3%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
+    <id>calyp.github.io/2019/02/28/相关数学知识/</id>
+    <published>2019-02-28T00:53:22.000Z</published>
+    <updated>2019-02-28T12:07:01.818Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="统计学相关"><a href="#统计学相关" class="headerlink" title="统计学相关"></a>统计学相关</h2><h3 id="协方差、协方差矩阵"><a href="#协方差、协方差矩阵" class="headerlink" title="协方差、协方差矩阵"></a>协方差、协方差矩阵</h3><p>标准差和方差一般是用来描述一维数据的，针对多维数据，协方差就是用来<strong>度量两个随机变量关系</strong>的统计量，仿照方差的定义</p>
+<p><img src="../images/20150930142616971.jpg" alt="015093014261697"></p>
+<p>给出协方差的定义</p>
+<p><img src="../images/20150930142639675.jpg" alt="015093014263967"></p>
+<p>协方差的结果为正值，则表明两者是正相关的，结果为负，则说明两个变量之间的负相关，如果为0，则说明两者之间没有关系，也就是“相互独立”。</p>
+<p>协方差只能处理<strong>二维问题</strong>，，随着维数的增加，需要计算多个协方差，所以需要用矩阵组织这些数据，写明是协方差矩阵的定义：</p>
+<p><img src="../images/20150930142849768.jpg" alt="015093014284976"></p>
+<p>假设数据集有三个维度，则协方差矩阵为：</p>
+<p><img src="../images/20150930142912268.jpg" alt="015093014291226"></p>
+<p>由上可知，协方差矩阵是一个对称矩阵，对角线为各个维度的方差。</p>
+<h3 id="相关系数、相关系数矩阵"><a href="#相关系数、相关系数矩阵" class="headerlink" title="相关系数、相关系数矩阵"></a>相关系数、相关系数矩阵</h3><p>相关系数是用来反映变量之间<strong>相关关系密切程度</strong>的统计指标，相关系数是按积差方法计算，同样以两变量与各自平均值的离差为基础，通过两个离差相乘来反映两变量之间相关程度，计算公式如下</p>
+<p><img src="../images/44335b50ca3c7833ed427137d03f0285.png" alt="4335b50ca3c7833ed427137d03f028"></p>
+<p>相关系数的值介于–1与+1之间，即–1≤r≤+1。其性质如下：</p>
+<ul>
+<li>当r&gt;0时，表示两变量正相关，r&lt;0时，两变量为负相关。</li>
+<li>当|r|=1时，表示两变量为完全线性相关，即为函数关系。</li>
+<li>当r=0时，表示两变量间<strong>无线性相关关系</strong>(不是说两个变量之间完全不相关，应该是线性不相关)</li>
+<li>当0&lt;|r|&lt;1时，表示两变量存在一定程度的线性相关。且|r|越接近1，两变量间线性关系越密切；|r|越接近于0，表示两变量的线性相关越弱。</li>
+<li>一般可按三级划分：|r|&lt;0.4为低度线性相关；0.4≤|r|&lt;0.7为显著性相关；0.7≤|r|&lt;1为高度线性相关。</li>
+</ul>
+<p>相关系数矩阵是由矩阵各列间的相关系数构成，相关矩阵第i行第j列的元素就是原矩阵第i列和第j列的相关系数。</p>
+<p><strong>总结</strong>：由协方差矩阵和相关矩阵的公式定义可知，经标准化（或正态化：将原始数据处理成均值为0，方差为1 的标准数据）的样本数据的协方差矩阵就是原始样本数据的相关矩阵。</p>
+<p><em>附上pandas处理多维数据，一般用来查看标签变量的统计特性和相关性</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">In [7]: df = pd.DataFrame(np.random.rand(10, 3), columns=[&apos;X1&apos;,&apos;Y1&apos;,&apos;Z3&apos;])</div><div class="line"></div><div class="line">In [8]: df</div><div class="line">Out[8]:</div><div class="line">         X1        Y1        Z3</div><div class="line">0  0.258116  0.667943  0.954830</div><div class="line">1  0.584975  0.546284  0.045745</div><div class="line">2  0.698974  0.409223  0.307409</div><div class="line">3  0.073166  0.356393  0.722233</div><div class="line">4  0.339093  0.146043  0.614686</div><div class="line">5  0.624361  0.062805  0.574546</div><div class="line">6  0.886631  0.217291  0.258432</div><div class="line">7  0.403345  0.035377  0.096881</div><div class="line">8  0.663185  0.376171  0.593964</div><div class="line">9  0.789347  0.489057  0.564688</div><div class="line"></div><div class="line">In [9]: df.describe()</div><div class="line">Out[9]:</div><div class="line">              X1         Y1         Z3</div><div class="line">count  10.000000  10.000000  10.000000</div><div class="line">mean    0.532119   0.330659   0.473341</div><div class="line">std     0.255544   0.210851   0.287745</div><div class="line">min     0.073166   0.035377   0.045745</div><div class="line">25%     0.355156   0.163855   0.270676</div><div class="line">50%     0.604668   0.366282   0.569617</div><div class="line">75%     0.690027   0.469099   0.609506</div><div class="line">max     0.886631   0.667943   0.954830</div><div class="line"></div><div class="line">In [10]: df.describe().loc[[&apos;min&apos;,&apos;max&apos;,&apos;std&apos;], &apos;Z3&apos;]</div><div class="line">Out[10]:</div><div class="line">min    0.045745</div><div class="line">max    0.954830</div><div class="line">std    0.287745</div><div class="line">Name: Z3, dtype: float64</div><div class="line"></div><div class="line">In [11]: corrdf=df.corr()#输出相关矩阵</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      关于统计学概率论的基础知识总结
+    
+    </summary>
+    
+      <category term="基础知识" scheme="calyp.github.io/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="数学知识" scheme="calyp.github.io/tags/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>图像质量评估论文笔记</title>
     <link href="calyp.github.io/2019/02/26/%E5%9B%BE%E5%83%8F%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2019/02/26/图像质量评估论文笔记/</id>
     <published>2019-02-26T00:46:12.000Z</published>
-    <updated>2019-02-26T08:48:34.626Z</updated>
+    <updated>2019-02-27T13:33:16.862Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="图像质量评估-IQA"><a href="#图像质量评估-IQA" class="headerlink" title="图像质量评估(IQA)"></a>图像质量评估(IQA)</h1><h2 id="Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment"><a href="#Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment" class="headerlink" title="Convolutional Neural Networks for No-Reference Image Quality Assessment"></a>Convolutional Neural Networks for No-Reference Image Quality Assessment</h2><p><strong>Paper</strong>:<a href="https://ieeexplore.ieee.org/iel7/6909096/6909393/06909620.pdf" target="_blank" rel="external">Convolutional Neural Networks for No-Reference Image Quality …</a></p>
-<p><strong>code</strong>:-</p>
-<p><strong>Author</strong>:Le Kang，Peng Ye，Yi Li，David Doermann</p>
-<p><strong>time</strong>:2014CVPR</p>
-<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>In this work we describe a Convolutional Neural Network (CNN) to accurately predict image quality without a reference image. Taking image patches as input, the CNN works in the spatial domain without using hand-crafted features that are employed by most previous methods. The network consists of one convolutional layer with max and min pooling, two fully connected layers and an output node. Within the network structure, feature learning and regression are integrated into one optimization process, which leads to a more effective model for estimating image quality. This approach achieves state of the art performance on the LIVE dataset and shows excellent generalization ability in cross dataset experiments. Further experiments on images with local distortions demonstrate the local quality estimation ability of our CNN, which is rarely reported in previous literature. </p>
-<p><strong>翻译</strong>：在这篇论文中，将会介绍如何在不需要参考图像的情况下利用CNN来准确预测图像质量(NR-IQA)。输入为图像的patch，CNN不需要利用手工特征，该网络包括一个卷积层和最大、最小池化层、两个全连接层和输出节点。在网络结构中，特征学习和回归被集成到一个优化过程中，这样模型预测图像质量会更有效。该方法在LIVE数据集上达到了state-of-the-art，并且在交叉数据集实验中泛化能力优异，对局部失真图像的进一步实验表明了CNN的局部质量评估能力，这在以前的文献中很少报道。</p>
-<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><hr>
-<h1 id="人脸质量评估-FQA"><a href="#人脸质量评估-FQA" class="headerlink" title="人脸质量评估(FQA)"></a>人脸质量评估(FQA)</h1><hr>
+    <content type="html"><![CDATA[<h1 id="图像质量评估-IQA"><a href="#图像质量评估-IQA" class="headerlink" title="图像质量评估(IQA)"></a>图像质量评估(IQA)</h1><h2 id="Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment"><a href="#Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment" class="headerlink" title="Convolutional Neural Networks for No-Reference Image Quality Assessment"></a>Convolutional Neural Networks for No-Reference Image Quality Assessment</h2><p><strong>Paper</strong>:<a href="https://ieeexplore.ieee.org/iel7/6909096/6909393/06909620.pdf" target="_blank" rel="external">Convolutional Neural Networks for No-Reference Image Quality …</a><br><strong>code</strong>:-<br><strong>Author</strong>:Le Kang，Peng Ye，Yi Li，David Doermann<br><strong>time</strong>:2014CVPR</p>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>In this work we describe a Convolutional Neural Network (CNN) to accurately predict image quality without a reference image. Taking image patches as input, the CNN works in the spatial domain without using hand-crafted features that are employed by most previous methods. The network consists of one convolutional layer with max and min pooling, two fully connected layers and an output node. Within the network structure, feature learning and regression are integrated into one optimization process, which leads to a more effective model for estimating image quality. This approach achieves state of the art performance on the LIVE dataset and shows excellent generalization ability in cross dataset experiments. Further experiments on images with local distortions demonstrate the local quality estimation ability of our CNN, which is rarely reported in previous literature.<br><strong>翻译</strong>：在这篇论文中，将会介绍如何在不需要参考图像的情况下利用CNN来准确预测图像质量(NR-IQA)。输入为图像的patch，CNN不需要利用手工特征，该网络包括一个卷积层和最大、最小池化层、两个全连接层和输出节点。在网络结构中，特征学习和回归被集成到一个优化过程中，这样模型预测图像质量会更有效。该方法在LIVE数据集上达到了state-of-the-art，并且在交叉数据集实验中泛化能力优异，对局部失真图像的进一步实验表明了CNN的局部质量评估能力，这在以前的文献中很少报道。</p>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
+<li>修改了网络结构，可以更有效的图像的质量特征，估计图像质量更准确</li>
+<li>提出了一个新的框架，可以让特征学习和预测在局部区域进行，而先前的工作都是在整个图像上得到累积特征以获得用于估计总体质量的统计数据。而我们的方法可以在小的patch(比如32x32)上估计质量评分。</li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>本篇论文就是对灰度图像，首先执行对比度归一化，然后采样不重叠的patch，使用CNN来估计每个patch的质量得分和平均patch得分来估计图像的质量分数，CNN就是一个很简单的回归网络。需要注意的是，本文采用的不是对整体进行对比度归一化，而是在<strong>局部的patch上做对比度归一化(contract normalization)</strong>，因为在全局做平均的归一化会有性能损失。归一化不仅可以缓解早期工作中使用sigmoid神经单元引起的饱和问题，还使网络对光照和对比度变化具有鲁棒性，值得注意的是，在某些应用中将亮度和对比度的变化也看作失真，但这里主要关注的是图像质量下降（模糊、压缩和加性噪声）引起的失真。</p>
+<hr>
+<h2 id="Quality-Aware-Network-for-Set-to-Set-Recognition"><a href="#Quality-Aware-Network-for-Set-to-Set-Recognition" class="headerlink" title="Quality Aware Network for Set to Set Recognition"></a>Quality Aware Network for Set to Set Recognition</h2><p><strong>paper</strong>:<a href="https://arxiv.org/abs/1704.03373" target="_blank" rel="external">Quality Aware Network for Set to Set Recognition</a><br><strong>code</strong>:<a href="https://github.com/sciencefans/Quality-Aware-Network`caffe`" target="_blank" rel="external">https://github.com/sciencefans/Quality-Aware-Network`caffe`</a><br><strong>Author</strong>:  Yu Liu，JunJie Yan，Wanli Ouyang<br><strong>time</strong>: 2017CVPR</p>
+<h3 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h3><p><strong>翻译</strong>:</p>
+<h3 id="Contribution-1"><a href="#Contribution-1" class="headerlink" title="Contribution"></a>Contribution</h3><h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3><hr>
+<h2 id="Automatic-Face-Image-Quality-Prediction"><a href="#Automatic-Face-Image-Quality-Prediction" class="headerlink" title="Automatic Face Image Quality Prediction"></a>Automatic Face Image Quality Prediction</h2><p><strong>paper</strong>:<a href="https://arxiv.org/abs/1706.09887" target="_blank" rel="external">Automatic Face Image Quality Prediction</a><br><strong>code</strong>:<br><strong>Author</strong>:<br><strong>time</strong>: 2017</p>
+<h3 id="Abstract-2"><a href="#Abstract-2" class="headerlink" title="Abstract"></a>Abstract</h3><p>This paper targets on the problem of set to set recognition, which learns the metric between two image sets. Images in each set belong to the same identity. Since images in a set can be complementary, they hopefully lead to higher accuracy in practical applications. However, the quality of each sample cannot be guaranteed, and samples with poor quality will hurt the metric. In this paper, the quality aware network (QAN) is proposed to confront this problem, where the quality of each sample can be automatically learned although such information is not explicitly provided in the training stage. The network has two branches, where the first branch extracts appearance feature embedding for each sample and the other branch predicts quality score for each sample. Features and quality scores of all samples in a set are then aggregated to generate the final feature embedding. We show that the two branches can be trained in an end-to-end manner given only the set-level identity annotation. Analysis on gradient spread of this mechanism indicates that the quality learned by the network is beneficial to set-to-set recognition and simplifies the distribution that the network needs to fit. Experiments on both face verification and person re-identification show advantages of the proposed QAN. The source code and network structure can be downloaded at GitHub </p>
+<p><strong>翻译</strong>:这篇论文的目标聚焦在<strong>set-to-set</strong>识别，学习两个数据集之间的metric。每个数据集中的图像属于同一类别，因为集合中的图片都是互相补充的，所以有希望可以在实际应用中达到更高的准确率。然鹅每个样本的质量并不能保证，</p>
+<h3 id="Contribution-2"><a href="#Contribution-2" class="headerlink" title="Contribution"></a>Contribution</h3><h3 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h3><hr>
+<h1 id="人脸质量评估-FQA"><a href="#人脸质量评估-FQA" class="headerlink" title="人脸质量评估(FQA)"></a>人脸质量评估(FQA)</h1><h2 id="Face-Image-Quality-Assessment-Based-on-Learning-to-Rank"><a href="#Face-Image-Quality-Assessment-Based-on-Learning-to-Rank" class="headerlink" title="Face Image Quality Assessment Based on Learning to Rank"></a>Face Image Quality Assessment Based on Learning to Rank</h2><p><strong>paper</strong>:<a href="https://ieeexplore.ieee.org/iel7/97/4358004/06877651.pdf" target="_blank" rel="external">Face Image Quality Assessment Based on Learning to Rank</a><br><strong>code</strong>: 开源了<br><strong>Author</strong>:<br><strong>time</strong>: 2015年</p>
+<h3 id="Abstract-3"><a href="#Abstract-3" class="headerlink" title="Abstract"></a>Abstract</h3><p>Face image quality is an important factor affecting the accuracy of automatic face recognition. It is usually possible for practical recognition systems to capture multiple face images from each subject. Selecting face images with high quality for recognition is a promising stratagem for improving the system performance. We propose a learning to rank based framework for assessing the face image quality. The proposed method is simple and can adapt to different recognition methods. Experimental result demonstrates its effectiveness in improving the robustness of face detection and recognition .</p>
+<p><strong>翻译</strong>:</p>
+<p>人脸图像质量是影响自动人脸识别准确率的重要因素。实际识别系统通常可能从每个subject捕获多个面部图像，选择具有高质量的面部图像用于识别是用于改善系统性能的一个策略，我们提出了基于<strong>learning to rank</strong>的框架来评估面部图像质量，该方法简单，可以适应不同的识别方法，实验结果证明了其在提高人脸检测和识别鲁棒性方面的有效性。</p>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><ul>
+<li><p><strong>图像预处理过程</strong></p>
+<p>按常理来说，图片中只有人脸区域的像素点才能被用来评估面部质量好坏，所以我们首先如下图检测到人脸，然后将其resize到68x68大小。然后送入CNN中作为输入，我们使用眼角和嘴角，因为这两处的关键点可以很清晰，并包含了大部分的人脸区域。</p>
+<p><img src="../images/QQ图片20190227202934.png" alt="Q图片2019022720293"></p>
+<p><img src="../images/QQ图片20190227203701.png" alt="Q图片2019022720370"></p>
+<p>利用上图中简单的CNN作为关键点检测网络，在LFW数据集中挑选了10000张作为训练集，剩下的作为测试集，图一中的(b)为预测的关键点。</p>
+<p>对人脸区域进行归一化，并消除面内旋转，首先计算中心点C和半径r（包含了所有关键点的最小圆），然后以2.4rx4r的矩形R来代替如图一中的(c)所示，这样就可以计算矩形的角度</p>
+</li>
+<li><p><strong>面部质量评估</strong></p>
+<p>目前主要有两种面部质量评估的办法：</p>
+<ol>
+<li>利用特定的性质，比如分辨率、角度、光照强度来量化面部图像质量</li>
+<li>将一张面部图像来与“标准”的人脸图像进行比较，利用它们之间的差异来度量面部质量</li>
+</ol>
+<p>但是这两种办法都不灵活，也缺乏实用性，因为它们都没有考虑到人脸识别算法的可能的差异性，比如对于能很好处理遮挡情况的人脸识别系统，Fig1(g)要比Fig(f)更好，而对于能很好处理姿态差异的人脸识别系统，Fig(f)要比Fig(g)好。应该以相对的方式来评估面部图像质量。</p>
+<p>基于上述考虑，提出一个简单灵活的基于learning to rank的方法来进行面部质量评估，大致来讲就是，比如对于一个人脸识别方法在数据集A上的表现要好于在数据集B上的表现，那么可以认为数据集A中图像质量要高于数据集B中图像的质量，然后同一数据集中的图像的质量分数应该被看做是相同的。具体公式论文中有描述，这里不详细写。但是作者利用的是显式映射函数而不是kernel SVM来计算RQS(Rank based Quality Score)</p>
+<p><img src="../images/QQ图片20190227211318.png" alt="Q图片2019022721131"></p>
+</li>
+</ul>
+<h3 id="Summary-3"><a href="#Summary-3" class="headerlink" title="Summary"></a>Summary</h3><p>从论文的结果上来看还是很好的，而作者开源的代码在实际应用场景中也表现得很鲁棒</p>
+<p><img src="../images/QQ图片20190227212235.png" alt="Q图片2019022721223"></p>
+<hr>
 <blockquote>
 <p>模板</p>
 <h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p><strong>paper</strong>:<br><strong>code</strong>:<br><strong>Author</strong>:<br><strong>time</strong>: </p>
-<h3 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h3><p><strong>翻译</strong>:</p>
-<h3 id="Contribution-1"><a href="#Contribution-1" class="headerlink" title="Contribution"></a>Contribution</h3><h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3></blockquote>
+<h3 id="Abstract-4"><a href="#Abstract-4" class="headerlink" title="Abstract"></a>Abstract</h3><p><strong>翻译</strong>:</p>
+<h3 id="Contribution-3"><a href="#Contribution-3" class="headerlink" title="Contribution"></a>Contribution</h3><h3 id="Summary-4"><a href="#Summary-4" class="headerlink" title="Summary"></a>Summary</h3></blockquote>
 ]]></content>
     
     <summary type="html">
@@ -232,7 +311,7 @@
     <link href="calyp.github.io/2018/12/05/%E5%B9%B4%E9%BE%84%E4%BC%B0%E8%AE%A1/"/>
     <id>calyp.github.io/2018/12/05/年龄估计/</id>
     <published>2018-12-05T08:48:48.000Z</published>
-    <updated>2019-02-26T08:59:13.685Z</updated>
+    <updated>2019-02-26T09:03:08.993Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h1><ul>
 <li><strong>FG-Net</strong>:1002 images,0到69岁，82个人</li>
@@ -247,6 +326,7 @@
 <li>released a dataset named AFAD , the largest public dataset to date</li>
 </ul>
 <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Rank的思想比较好，针对有序的问题，将序数回归转化为一系列的二分类问题，但是这篇论文并不是第一个使用ranking思想的论文，和以前的方法（提取手工特征或者深度学习特征，然后用SVM/SVR的分类器作为二分类器）不同的是，将ranking和CNN结合起来，可以端到端的训练。</p>
+<hr>
 <h1 id="RankingCNN"><a href="#RankingCNN" class="headerlink" title="RankingCNN"></a>RankingCNN</h1><p><strong>paper</strong>：<a href="http://openaccess.thecvf.com/content_cvpr_2017/poster/2148_POSTER.pdf" target="_blank" rel="external">Using Ranking-CNN for Age Estimation</a><code>CVPR2017</code><br><strong>code:</strong> <a href="https://github.com/RankingCNN/Using-Ranking-CNN-for-Age-Estimation" target="_blank" rel="external">Using-Ranking-CNN-for-Age-Estimation</a></p>
 <h2 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h2><p>Human age is considered an important biometric trait for human identification or search. Recent research shows that the aging features deeply learned from large-scale data lead to significant performance improvement on facial image-based age estimation. However, age-related ordinal information is totally ignored in these approaches. In this paper, we propose a novel Convolutional Neural Network (CNN)-based framework, ranking-CNN, for age estimation. Ranking-CNN contains a series of basic CNNs, each of<br>which is trained with ordinal age labels. Then, their binary outputs are aggregated for the final age prediction. We theoretically obtain a much tighter error bound for rankingbased age estimation. Moreover, we rigorously prove that ranking-CNN is more likely to get smaller estimation errors when compared with multi-class classification approaches. Through extensive experiments, we show that statistically, ranking-CNN significantly outperforms other state-of-theart age estimation models on benchmark datasets .<br><strong>翻译</strong>:<br>人类年龄被认为是一个重要的生物特征，对人类的识别或搜索。最近的研究表明，从大规模数据中深入学习到的年龄特征使得基于人脸图像的年龄估计的性能有了显着的提高。然而，在这些方法中，与年龄相关的顺序信息被完全忽略。本文提出了一种新的基于卷积神经网络(CNN)的年龄估计框架-Ranking-CNN。Ranjing-CNN包含一系列基本CNN，每个CNN都是用顺序年龄标签训练的。然后，将它们的二进制输出进行聚合，以进行最终的年龄预测。我们从理论上得到了一个更严格的基于秩的年龄估计的误差界。此外，我们严格地证明了，与多类分类方法相比，Ranking-CNN更容易获得较小的估计误差。通过大量的实验，我们表明，在统计上，Ranking-CNN在基准数据集上的性能明显优于其他最先进的年龄估计模型。<br><img src="/images/QQ%E5%9B%BE%E7%89%8720181202121159.png" alt="Q图片2018120212115"><img src="/images/QQ%E5%9B%BE%E7%89%8720181202121223.png" alt="Q图片2018120212122"></p>
 <h2 id="Contributions-1"><a href="#Contributions-1" class="headerlink" title="Contributions"></a>Contributions</h2><ul>
@@ -255,10 +335,12 @@
 <li>We prove that ranking-CNN, by taking the ordinal relation between ages into consideration, is more likely to get smaller estimation errors when compared with multi-class classification approaches (i.e., CNNs using the softmax function). Moreover, through extensive experiments, we show that statistically, ranking-CNN significantly outperforms other state-of-the-art age estimation methods </li>
 </ul>
 <h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><p>这篇论文和上篇oridnal regression的思想类似，但是效果要好很多，不同的是每个二分类器都有单独的模型，所有二分类器都不共享中间层，然后聚合所有二分类器的结果得到最终的年龄估计，另外还会得到最终排序误差的近似值，该误差由子问题中产生的最大误差控制，比上一篇论文的方法误差控制更严格。</p>
+<hr>
 <h1 id="SSR-Net"><a href="#SSR-Net" class="headerlink" title="SSR-Net"></a>SSR-Net</h1><p><strong>paper</strong>：<a href="https://www.csie.ntu.edu.tw/~cyy/publications/papers/Yang2018SSR.pdf" target="_blank" rel="external">SSR-Net: A Compact Soft Stagewise Regression Network for Age Estimation</a><code>IJCAI2018</code><br><strong>code:</strong> <a href="https://github.com/shamangary/SSR-Net" target="_blank" rel="external">SSRNet</a></p>
 <h2 id="Abstract-2"><a href="#Abstract-2" class="headerlink" title="Abstract"></a>Abstract</h2><p>This paper presents a novel CNN model called Soft Stagewise Regression Network (SSR-Net) for age estimation from a single image with a compact model size. Inspired by DEX, we address age estimation by performing multi-class classification andthen turning classification results into regression by calculating the expected values. SSR-Net takes a coarse -to-fine strategy and performs multi-class classification with multiple stages.Each stage is only responsible for refining the decision of its previous stage for more accurate age estimation. Thus, each stage performs a task with few classes and requires few neurons, greatly reducing the model size. For addressing the quantization issue introduced by grouping ages into classes, SSR-Net assigns a dynamic range to each age class by allowing it to be shifted and scaled according to the input face image. Both the multi-stage strategy and the dynamic range are incorporated into the formulation of soft stagewise regression. A novel network architecture is proposed for carrying out soft stagewise regression. The resultant SSR-Net model is very compact and takes only 0.32 MB. Despite its compact size, SSR-Net’ s performance approaches those of the state -of-the -art methods whose model sizes are often more than 1500x larger.<br><strong>翻译</strong>：本文提出了一种新的CNN模型，称为Soft stagewise regression net(SSR-Net)，使用一个很小的compact模型对单个图像进行年龄估计。受DEX的启发，我们通过执行多类分类来解决年龄估计，然后通过计算预期值将分类结果转化为回归。 SSR-Net采用粗略到精细的策略并执行多阶段的多级分类。每个阶段仅负责完善其前一阶段的决策以进行更准确的年龄估计。因此，每个阶段执行具有少量类的任务并且需要很少的神经元，从而大大减小了模型尺寸。为了解决通过将年龄分组到类中引入的量化问题，SSR-Net通过允许根据输入面部图像移位和缩放来为每个年龄类别分配动态范围。多阶段策略和动态范围都包含在软阶段回归的公式中。提出了一种新颖的网络架构，用于进行软分段回归。由此产生的SSR-Net模型非常紧凑，仅需0.32MB。尽管尺寸紧凑，但SSR-Net的性能接近于那些模型尺寸通常超过1500倍的方法。<br><img src="/images/QQ%E5%9B%BE%E7%89%8720181202120956.png" alt="Q图片2018120212095"></p>
 <h2 id="Contributions-2"><a href="#Contributions-2" class="headerlink" title="Contributions"></a>Contributions</h2><p>新的年龄估计模型，平均误差绝对值为3.16，与最好的模型（当时）差距0.5岁，但参数不到其1/1000，整个模型参数仅0.3M，非常适合用于嵌入式系统。</p>
 <h2 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h2><p>采用多分段的多级分类的思想，大大减少了模型的参数，在准确性和模型大小方面做了一个均衡，另外，这么小的模型做到这种准确率很厉害。</p>
+<hr>
 <h1 id="DeepRegressionForest"><a href="#DeepRegressionForest" class="headerlink" title="DeepRegressionForest"></a>DeepRegressionForest</h1><p><strong>paper:</strong><a href="https://arxiv.org/abs/1712.07195" target="_blank" rel="external">Deep Regression Forests for Age Estimation</a><code>CVPR2018</code><br><strong>code</strong>:<a href="https://github.com/shenwei1231/caffe-DeepRegressionForests" target="_blank" rel="external">caffe-DeepRegressionForests</a></p>
 <h2 id="Abstract-3"><a href="#Abstract-3" class="headerlink" title="Abstract"></a>Abstract</h2><p>Age estimation from facial images is typically cast as a nonlinear regression problem. The main challenge of this problem is the facial feature space w.r.t. ages is heterogeneous, due to the large variation in facial appearance across different persons of the same age and the nonstationary property of aging patterns. In this paper, we propose Deep Regression Forests (DRFs), an end-to-end model, for age estimation. DRFs connect the split nodes to a fully connected layer of a convolutional neural network (CNN) and deal with heterogeneous data by jointly learning input-dependant data partitions at the split nodes and data abstractions at the leaf nodes. This joint learning follows an alternating strategy: First, by ﬁxing the leaf nodes, the split nodes as well as the CNN parameters are optimized by Back-propagation; Then, by ﬁxing the split nodes, the leaf nodes are optimized by iterating a step-size free and fastconverging update rule derived from Variational Bounding. We verify the proposed DRFs on three standard age estimation benchmarks and achieve state-of-the-art results on all of them.<br><strong>翻译</strong>：<br>来自面部图像的年龄估计通常被视为非线性回归问题。这个问题的主要挑战是面部特征空间w.r.t.年龄是不均匀的，这是由于同一年龄段不同人的面部外观差异很大，以及老龄化模式的非平稳性。在本文中，我们提出了深度回归森林（DRFs），一种端到端模型，用于年龄估计。DRF将分裂节点连接到卷积神经网络（CNN）的完全连接层，并通过联合学习分裂节点处的输入相关数据分区和叶节点处的数据抽象来处理异构数据。这种联合学习遵循交替策略：首先，通过固定叶节点，分裂节点以及CNN参数通过反向传播进行优化;然后，通过修剪拆分节点，通过迭代从变分边界派生的步长自由和快速收敛更新规则来优化叶节点。我们在三个标准年龄估算基准上验证了提议的DRF，并在所有这些基准上取得了最新的成果。<br><img src="/images/Q83KC%7B3A7Y%7DPVX~YU%60383RN.png" alt="83KC{3A7Y}PVX~YU`383R"></p>
 <h2 id="Contributions-3"><a href="#Contributions-3" class="headerlink" title="Contributions"></a>Contributions</h2><ul>
@@ -267,6 +349,7 @@
 <li>We apply DRFs on three standard age estimation<br>benchmarks, and achieve state-of-the-art results. </li>
 </ul>
 <h2 id="Summary-3"><a href="#Summary-3" class="headerlink" title="Summary"></a>Summary</h2><p>用深度回归森林的思想来进行年龄估计的任务，属于一种distribution learning的办法，论文中涉及到大量的概率论的知识和大量的推导公式，将年龄分布分布到多个叶子节点，最终采用随机森林和决策树的思想，对模型训练结果做融合，模型很好训练，且准确率也不错。</p>
+<hr>
 <h1 id="Mean-Variance-Loss"><a href="#Mean-Variance-Loss" class="headerlink" title="Mean-Variance Loss"></a>Mean-Variance Loss</h1><p><strong>paper</strong>:<a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Pan_Mean-Variance_Loss_for_CVPR_2018_paper.pdf" target="_blank" rel="external">Mean-Variance Loss for Deep Age Estimation From a Face</a><code>CVPR2018</code><br><strong>code:</strong>-</p>
 <h2 id="Abstract-4"><a href="#Abstract-4" class="headerlink" title="Abstract"></a>Abstract</h2><p>Age estimation has wide applications in video surveillance, social networking, and human-computer interaction. Many of the published approaches simply treat age estimation as an exact age regression problem, and thus do not leverage a distribution’s robustness in representing labels with ambiguity such as ages. In this paper, we propose a new loss function, called mean-variance loss, for robust age estimation via distribution learning. Speciﬁcally, the mean-variance loss consists of a mean loss, which penalizes difference between the mean of the estimated age distribution and the ground-truth age, and a variance loss, which penalizes the variance of the estimated age distribution to ensure a concentrated distribution. The proposed meanvariance loss and softmax loss are jointly embedded into Convolutional Neural Networks (CNNs) for age estimation. Experimental results on the FG-NET, MORPH Album II, CLAP2016, and AADB databases show that the proposed approach outperforms the state-of-the-art age estimation methods by a large margin, and generalizes well to image aesthetics assessment.1<br><strong>翻译</strong>：<br>年龄估计在视频监控，社交网络和人机交互中具有广泛的应用。许多已发表的方法仅将年龄估计视为精确的年龄回归问题，因此不会利用分布的稳健性来表示具有模糊性的标签，例如年龄。在本文中，我们提出了一种新的损失函数，称为均值 - 方差损失，用于通过分布学习进行稳健的年龄估计。具体而言，均值 - 方差损失包括平均损失，其惩罚估计年龄分布的平均值与地面实际年龄之间的差异，以及方差损失，其惩罚估计年龄分布的方差以确保集中分布。 。所提出的均值方差损失和softmax损失共同嵌入到卷积神经网络（CNN）中用于年龄估计。在FG-NET，MORPH Album II，CLAP2016和AADB数据库上的实验结果表明，所提出的方法大大超过了现有技术的年龄估计方法，并且很好地概括了图像美学评估。<br><img src="/images/QQ%E5%9B%BE%E7%89%8720181202130028.png" alt="Q图片2018120213002"></p>
 <h2 id="Contributions-4"><a href="#Contributions-4" class="headerlink" title="Contributions"></a>Contributions</h2><ol>
@@ -611,33 +694,17 @@
     <link href="calyp.github.io/2017/06/17/Caffe%E8%B0%83%E5%8F%82/"/>
     <id>calyp.github.io/2017/06/17/Caffe调参/</id>
     <published>2017-06-17T01:26:12.000Z</published>
-    <updated>2018-12-05T09:19:47.823Z</updated>
+    <updated>2019-03-01T03:10:23.884Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="loss为nan"><a href="#loss为nan" class="headerlink" title="loss为nan"></a>loss为nan</h1><p><strong>梯度爆炸</strong></p>
-<p><strong>原因</strong>：梯度变得非常大，使得学习过程难以继续</p>
-<p><strong>现象：</strong>观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。</p>
-<p><strong>措施</strong>： </p>
+    <content type="html"><![CDATA[<h1 id="loss为nan"><a href="#loss为nan" class="headerlink" title="loss为nan"></a>loss为nan</h1><h2 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h2><p><strong>原因</strong>：梯度变得非常大，使得学习过程难以继续<br><strong>现象：</strong>观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。<br><strong>措施</strong>： </p>
 <ol>
 <li>减小solver.prototxt中的base_lr，至少减小一个数量级。如果有多个loss layer，需要找出哪个损失层导致了梯度爆炸，并在train_val.prototxt中减小该层的loss_weight，而非是减小通用的base_lr。 </li>
 <li>设置clip gradient，用于限制过大的diff</li>
 </ol>
-<p>## </p>
-<p><strong>不当的损失函数</strong></p>
-<p><strong>原因</strong>：有时候损失层中loss的计算可能导致NaN的出现。比如，给InfogainLoss层（信息熵损失）输入没有归一化的值，使用带有bug的自定义损失层等等。</p>
-<p><strong>现象</strong>：观测训练产生的log时一开始并不能看到异常，loss也在逐步的降低，但突然之间NaN就出现了。</p>
-<p><strong>措施</strong>：看看你是否能重现这个错误，在loss layer中加入一些输出以进行调试。</p>
-<p>示例：有一次我使用的loss归一化了batch中label错误的次数。如果某个label从未在batch中出现过，loss就会变成NaN。在这种情况下，可以用足够大的batch来尽量避免这个错误。</p>
-<p>## </p>
-<p><strong>不当的输入</strong></p>
-<p><strong>原因</strong>：输入中就含有NaN。</p>
-<p><strong>现象</strong>：每当学习的过程中碰到这个错误的输入，就会变成NaN。观察log的时候也许不能察觉任何异常，loss逐步的降低，但突然间就变成NaN了。</p>
-<p><strong>措施</strong>：重整你的数据集，确保训练集和验证集里面没有损坏的图片。调试中你可以使用一个简单的网络来读取输入层，有一个缺省的loss，并过一遍所有输入，如果其中有错误的输入，这个缺省的层也会产生NaN。</p>
-<p><strong>案例</strong>：有一次公司需要训练一个模型，把标注好的图片放在了七牛上，拉下来的时候发生了dns劫持，有一张图片被换成了淘宝的购物二维码，且这个二维码格式与原图的格式不符合，因此成为了一张“损坏”图片。每次训练遇到这个图片的时候就会产生NaN。良好的习惯是，你有一个检测性的网络，每次训练目标网络之前把所有的样本在这个检测性的网络里面过一遍，去掉非法值。</p>
-<p><strong>池化层中步长比核的尺寸大</strong></p>
-<p>如下例所示，当池化层中stride &gt; kernel的时候会在y中产生NaN</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">  name: &quot;faulty_pooling&quot;</div><div class="line">  type: &quot;Pooling&quot;</div><div class="line">  bottom: &quot;x&quot;</div><div class="line">  top: &quot;y&quot;</div><div class="line">  pooling_param &#123;</div><div class="line">  pool: AVE</div><div class="line">  stride: 5</div><div class="line">  kernel: 3</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>致谢</strong></p>
-<p><em><a href="http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training" target="_blank" rel="external">http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training</a></em></p>
+<h2 id="不当的损失函数"><a href="#不当的损失函数" class="headerlink" title="不当的损失函数"></a>不当的损失函数</h2><p><strong>原因</strong>：有时候损失层中loss的计算可能导致NaN的出现。比如，给InfogainLoss层（信息熵损失）输入没有归一化的值，使用带有bug的自定义损失层等等。<br><strong>现象</strong>：观测训练产生的log时一开始并不能看到异常，loss也在逐步的降低，但突然之间NaN就出现了。<br><strong>措施</strong>：看看你是否能重现这个错误，在loss layer中加入一些输出以进行调试。<br>示例：有一次我使用的loss归一化了batch中label错误的次数。如果某个label从未在batch中出现过，loss就会变成NaN。在这种情况下，可以用足够大的batch来尽量避免这个错误。</p>
+<h2 id="不当的输入"><a href="#不当的输入" class="headerlink" title="不当的输入"></a>不当的输入</h2><p><strong>原因</strong>：输入中就含有NaN。<br><strong>现象</strong>：每当学习的过程中碰到这个错误的输入，就会变成NaN。观察log的时候也许不能察觉任何异常，loss逐步的降低，但突然间就变成NaN了。<br><strong>措施</strong>：重整你的数据集，确保训练集和验证集里面没有损坏的图片。调试中你可以使用一个简单的网络来读取输入层，有一个缺省的loss，并过一遍所有输入，如果其中有错误的输入，这个缺省的层也会产生NaN。<br><strong>案例</strong>：有一次公司需要训练一个模型，把标注好的图片放在了七牛上，拉下来的时候发生了dns劫持，有一张图片被换成了淘宝的购物二维码，且这个二维码格式与原图的格式不符合，因此成为了一张“损坏”图片。每次训练遇到这个图片的时候就会产生NaN。良好的习惯是，你有一个检测性的网络，每次训练目标网络之前把所有的样本在这个检测性的网络里面过一遍，去掉非法值。</p>
+<p><strong>池化层中步长比核的尺寸大</strong><br>如下例所示，当池化层中stride &gt; kernel的时候会在y中产生NaN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">  name: &quot;faulty_pooling&quot;</div><div class="line">  type: &quot;Pooling&quot;</div><div class="line">  bottom: &quot;x&quot;</div><div class="line">  top: &quot;y&quot;</div><div class="line">  pooling_param &#123;</div><div class="line">  pool: AVE</div><div class="line">  stride: 5</div><div class="line">  kernel: 3</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>致谢</strong><br><em><a href="http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training" target="_blank" rel="external">http://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training</a></em></p>
 <h1 id="Accuracy一直为0"><a href="#Accuracy一直为0" class="headerlink" title="Accuracy一直为0"></a>Accuracy一直为0</h1><p>考虑标签是否从0开始递增</p>
 ]]></content>
     
@@ -1630,7 +1697,7 @@
     <link href="calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>calyp.github.io/2017/06/01/杂知识点/</id>
     <published>2017-06-01T01:42:05.000Z</published>
-    <updated>2018-12-05T09:25:47.318Z</updated>
+    <updated>2019-03-01T03:19:23.990Z</updated>
     
     <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><strong>本节部分转载于穆文发表于知乎的<a href="https://www.zhihu.com/question/21329754/answer/151216012" target="_blank" rel="external">分类与回归区别是什么</a>下面的回答，获得原作者授权</strong></p>
 <p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
@@ -1661,12 +1728,9 @@
 <li>回归和分类与CNN类似，输出层的值<strong>y=wx+b</strong>，可做分类和回归，区别在于，RNN的输出和时间有关，即输出的是{y(t),y(t+1),..}序列</li>
 </ul>
 </li>
-<li><p>Logistic回归&amp;SVM</p>
-<p> 两种方法都是常见的分类算法，从目标函数来看，区别在于逻辑回归采用的是logistical loss，svm采用的是hinge loss。这两个损失函数的目的都是增加对分类影响较大的数据点的权重，减少与分类关系较小的数据点的权重。SVM的处理方法是只考虑support vectors，也就是和分类最相关的少数点，去学习分类器。而逻辑回归通过非线性映射，大大减小了离分类平面较远的点的权重，相对提升了与分类最相关的数据点的权重。两者的根本目的都是一样的。此外，根据需要，两个方法都可以增加不同的正则化项，如l1,l2等等。所以在很多实验中，两种算法的结果是很接近的。<a href="[SVM和logistic回归分别在什么情况下使用](https://www.zhihu.com/question/21704547/answer/20293255)">^1</a></p>
-<p> 线性模型的表达式为</p>
+<li><p>Logistic回归&amp;SVM<br> 两种方法都是常见的分类算法，从目标函数来看，区别在于逻辑回归采用的是logistical loss，svm采用的是hinge loss。这两个损失函数的目的都是增加对分类影响较大的数据点的权重，减少与分类关系较小的数据点的权重。SVM的处理方法是只考虑support vectors，也就是和分类最相关的少数点，去学习分类器。而逻辑回归通过非线性映射，大大减小了离分类平面较远的点的权重，相对提升了与分类最相关的数据点的权重。两者的根本目的都是一样的。此外，根据需要，两个方法都可以增加不同的正则化项，如l1,l2等等。所以在很多实验中，两种算法的结果是很接近的。<a href="[SVM和logistic回归分别在什么情况下使用](https://www.zhihu.com/question/21704547/answer/20293255)">^1</a><br> 线性模型的表达式为<br>$$<br>h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+…+\theta_nx_n<br>$$</p>
 </li>
 </ol>
-<p>$$<br>h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+…+\theta_nx_n<br>$$</p>
 <p>​    将线性模型的输出送给sigmoid函数，就得到logistic回归模型；将线性模型表达式中的xi换为fi，就得到SVM模型的表达式。其中fi是xi的核函数，也就是xi的非线性多项式，例如f1=x1*x2，所以线性kernel的SVM(fi=xi)，在选择和使用上跟logistic回归没有区别。</p>
 <p>​    用n表示Feature数量,m表示训练集个数。下面分情况讨论<a href="[SVM和Logistic的区别](http://blog.csdn.net/ybdesire/article/details/54143481)">^2</a>：</p>
 <ul>
@@ -1676,16 +1740,13 @@
 </ul>
 <h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="迁移学习-3："><a href="#迁移学习-3：" class="headerlink" title="迁移学习^3："></a>迁移学习<a href="[[物体检测中常用的几个概念迁移学习、IOU、NMS理解](http://blog.csdn.net/zhang_shuai12/article/details/52716952)]">^3</a>：</h2><p>有监督预训练(<em>supervised pre-training</em>)，把一个任务训练好的参数拿到另一个任务作为神经网络的初始参数值。</p>
 <ul>
-<li><strong>NMS(非极大值抑制)：</strong></li>
+<li><strong>NMS(非极大值抑制)：</strong><br>在物体检测中NMS（Non-maximum suppression）非极大抑制应用十分广泛，其目的是为了消除多余的框，找到最佳的物体检测的位置。在RCNN系列<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>中，会从一张图片中找出很多个候选框（可能包含物体的矩形边框），然后为每个矩形框为做类别分类概率。非极大值抑制（NMS）非极大值抑制顾名思义就是抑制不是极大值的元素，搜索局部的极大值。例如在对象检测中，滑动窗口经提取特征，经分类器分类识别后，每个窗口都会得到一个分类及分数。但是滑动窗口会导致很多窗口与其他窗口存在包含或者大部分交叉的情况。这时就需要用到NMS来选取那些邻域里分数最高（是某类对象的概率最大），并且抑制那些分数低的窗口。</li>
 </ul>
-<p>在物体检测中NMS（Non-maximum suppression）非极大抑制应用十分广泛，其目的是为了消除多余的框，找到最佳的物体检测的位置。在RCNN系列<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>中，会从一张图片中找出很多个候选框（可能包含物体的矩形边框），然后为每个矩形框为做类别分类概率。非极大值抑制（NMS）非极大值抑制顾名思义就是抑制不是极大值的元素，搜索局部的极大值。例如在对象检测中，滑动窗口经提取特征，经分类器分类识别后，每个窗口都会得到一个分类及分数。但是滑动窗口会导致很多窗口与其他窗口存在包含或者大部分交叉的情况。这时就需要用到NMS来选取那些邻域里分数最高（是某类对象的概率最大），并且抑制那些分数低的窗口。</p>
 <p>定位一个车辆，最后算法就找出了一堆的方框，我们需要判别哪些矩形框是没用的。 所谓非极大值抑制：先假设有6个矩形框，根据分类器类别分类概率做排序，从小到大分别属于车辆的概率分别为A、B、C、D、E、F。<br>(1)从最大概率矩形框F开始，分别判断A~E与F的重叠度IOU是否大于某个设定的阈值;<br>(2)假设B、D与F的重叠度超过阈值，那么就扔掉B、D；并标记第一个矩形框F，是我们保留下来的。<br>(3)从剩下的矩形框A、C、E中，选择概率最大的E，然后判断E与A、C的重叠度，重叠度大于一定的阈值，那么就扔掉；并标记E是我们保留下来的第二个矩形框。<br>就这样一直重复，找到所有被保留下来的矩形框。</p>
 <ul>
-<li><strong>IoU(交并比)：</strong></li>
+<li><strong>IoU(交并比)：</strong><br>物体检测需要定位出物体的bounding box，比如车辆检查中，我们不仅要定位出车辆的bounding box ，还要识别出bounding box 里面的物体就是车辆。对于bounding box的定位精度，有一个很重要的概念，因为我们<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>不可能百分百跟人工标注的数据完全匹配，因此就存在一个定位精度评价公式：IOU。IOU表示了bounding box 与 ground truth 的重叠度。即IoU是定位精度的评价公式<br>$$<br>IoU=\frac{A\cap B}{A\cup B}<br>$$</li>
 </ul>
-<p>物体检测需要定位出物体的bounding box，比如车辆检查中，我们不仅要定位出车辆的bounding box ，还要识别出bounding box 里面的物体就是车辆。对于bounding box的定位精度，有一个很重要的概念，因为我们<a href="http://lib.csdn.net/base/datastructure" target="_blank" rel="external">算法</a>不可能百分百跟人工标注的数据完全匹配，因此就存在一个定位精度评价公式：IOU。IOU表示了bounding box 与 ground truth 的重叠度。即IoU是定位精度的评价公式<br>$$<br>IoU=\frac{A\cap B}{A\cup B}<br>$$</p>
-<h2 id="准确率-amp-精确率-amp-召回率"><a href="#准确率-amp-精确率-amp-召回率" class="headerlink" title="准确率&amp;精确率&amp;召回率:"></a>准确率&amp;精确率&amp;召回率:</h2><p>​    <em>准确率是正确预测的样本占总的预测样本比例</em><br>​    <em>精确率是预测为正的样本中有多少是真的正类</em><br>​    <em>召回率是样本中有多少正例被正确的预测</em><br>​    <em>F值=准确率*召回率*2/(准确率+召回率)，是准确率和召回率的调和平均值</em></p>
-<p>​<em>TP</em>：正类被预测为正类<br>​<em>FN</em>：正类被预测为负类<br>​<em>FP</em>：负类被预测为正类<br>​<em>TN</em>：负类被预测为负类</p>
+<h2 id="准确率-amp-精确率-amp-召回率"><a href="#准确率-amp-精确率-amp-召回率" class="headerlink" title="准确率&amp;精确率&amp;召回率:"></a>准确率&amp;精确率&amp;召回率:</h2><p>​    <em>准确率是正确预测的样本占总的预测样本比例</em><br>​    <em>精确率是预测为正的样本中有多少是真的正类</em><br>​    <em>召回率是样本中有多少正例被正确的预测</em><br>​    <em>F值=准确率*召回率*2/(准确率+召回率)，是准确率和召回率的调和平均值</em><br>​<em>TP</em>：正类被预测为正类<br>​<em>FN</em>：正类被预测为负类<br>​<em>FP</em>：负类被预测为正类<br>​<em>TN</em>：负类被预测为负类</p>
 <p>$$<br>准确率=\frac{TP+TN}{TP+TF+FN+FP}<br>$$</p>
 <p>$$<br>精确率=\frac{TP}{TP+FP}<br>$$</p>
 <p>$$<br>召回率=\frac{TP}{TP+FN}<br>$$</p>
