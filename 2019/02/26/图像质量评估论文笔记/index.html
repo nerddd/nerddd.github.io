@@ -73,15 +73,15 @@
 <meta property="og:url" content="calyp.github.io/2019/02/26/图像质量评估论文笔记/index.html">
 <meta property="og:site_name" content="Calyp">
 <meta property="og:description" content="关于图像质量评估（包括人脸图像质量评估）的论文笔记">
-<meta property="og:image" content="calyp.github.io/2019/02/26/images/QQ图片20190227202934.png">
+<meta property="og:image" content="/images/QQ图片20190227202934.png">
 <meta property="og:image" content="calyp.github.io/2019/02/26/images/QQ图片20190227203701.png">
-<meta property="og:image" content="calyp.github.io/2019/02/26/images/QQ图片20190227211318.png">
-<meta property="og:image" content="calyp.github.io/2019/02/26/images/QQ图片20190227212235.png">
-<meta property="og:updated_time" content="2019-02-27T13:33:16.862Z">
+<meta property="og:image" content="/images/QQ图片20190227211318.png">
+<meta property="og:image" content="/images/QQ图片20190227212235.png">
+<meta property="og:updated_time" content="2019-03-01T07:10:58.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像质量评估论文笔记">
 <meta name="twitter:description" content="关于图像质量评估（包括人脸图像质量评估）的论文笔记">
-<meta name="twitter:image" content="calyp.github.io/2019/02/26/images/QQ图片20190227202934.png">
+<meta name="twitter:image" content="/images/QQ图片20190227202934.png">
 
 
 
@@ -411,7 +411,7 @@
 <h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><ul>
 <li><p><strong>图像预处理过程</strong></p>
 <p>按常理来说，图片中只有人脸区域的像素点才能被用来评估面部质量好坏，所以我们首先如下图检测到人脸，然后将其resize到68x68大小。然后送入CNN中作为输入，我们使用眼角和嘴角，因为这两处的关键点可以很清晰，并包含了大部分的人脸区域。</p>
-<p><img src="../images/QQ图片20190227202934.png" alt="Q图片2019022720293"></p>
+<p><img src="/images/QQ图片20190227202934.png" alt="Q图片2019022720293"></p>
 <p><img src="../images/QQ图片20190227203701.png" alt="Q图片2019022720370"></p>
 <p>利用上图中简单的CNN作为关键点检测网络，在LFW数据集中挑选了10000张作为训练集，剩下的作为测试集，图一中的(b)为预测的关键点。</p>
 <p>对人脸区域进行归一化，并消除面内旋转，首先计算中心点C和半径r（包含了所有关键点的最小圆），然后以2.4rx4r的矩形R来代替如图一中的(c)所示，这样就可以计算矩形的角度</p>
@@ -424,11 +424,11 @@
 </ol>
 <p>但是这两种办法都不灵活，也缺乏实用性，因为它们都没有考虑到人脸识别算法的可能的差异性，比如对于能很好处理遮挡情况的人脸识别系统，Fig1(g)要比Fig(f)更好，而对于能很好处理姿态差异的人脸识别系统，Fig(f)要比Fig(g)好。应该以相对的方式来评估面部图像质量。</p>
 <p>基于上述考虑，提出一个简单灵活的基于learning to rank的方法来进行面部质量评估，大致来讲就是，比如对于一个人脸识别方法在数据集A上的表现要好于在数据集B上的表现，那么可以认为数据集A中图像质量要高于数据集B中图像的质量，然后同一数据集中的图像的质量分数应该被看做是相同的。具体公式论文中有描述，这里不详细写。但是作者利用的是显式映射函数而不是kernel SVM来计算RQS(Rank based Quality Score)</p>
-<p><img src="../images/QQ图片20190227211318.png" alt="Q图片2019022721131"></p>
+<p><img src="/images/QQ图片20190227211318.png" alt="Q图片2019022721131"></p>
 </li>
 </ul>
 <h3 id="Summary-3"><a href="#Summary-3" class="headerlink" title="Summary"></a>Summary</h3><p>从论文的结果上来看还是很好的，而作者开源的代码在实际应用场景中也表现得很鲁棒</p>
-<p><img src="../images/QQ图片20190227212235.png" alt="Q图片2019022721223"></p>
+<p><img src="/images/QQ图片20190227212235.png" alt="Q图片2019022721223"></p>
 <hr>
 <blockquote>
 <p>模板</p>
