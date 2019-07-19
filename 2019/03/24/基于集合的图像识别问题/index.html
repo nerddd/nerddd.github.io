@@ -1,0 +1,1219 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="set-based recognition," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Calyp" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="来源于组会分享，基于集合的人脸和步态识别问题">
+<meta name="keywords" content="set-based recognition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于集合的图像识别问题">
+<meta property="og:url" content="calyp.github.io/2019/03/24/基于集合的图像识别问题/index.html">
+<meta property="og:site_name" content="Calyp">
+<meta property="og:description" content="来源于组会分享，基于集合的人脸和步态识别问题">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-41-41.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-41-52.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-02.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-10.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-16.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-23.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-34.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-40.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-48.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-42-58.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-05.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-14.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-21.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-29.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-35.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-41.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-48.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-53.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-43-59.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-44-05.png">
+<meta property="og:image" content="/images/Snipaste_2019-07-19_20-44-12.png">
+<meta property="og:updated_time" content="2019-07-19T12:58:45.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于集合的图像识别问题">
+<meta name="twitter:description" content="来源于组会分享，基于集合的人脸和步态识别问题">
+<meta name="twitter:image" content="/images/Snipaste_2019-07-19_20-41-41.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":true,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="calyp.github.io/2019/03/24/基于集合的图像识别问题/"/>
+
+
+
+
+
+  <title>基于集合的图像识别问题 | Calyp</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calyp</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Study</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="calyp.github.io/2019/03/24/基于集合的图像识别问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calyp">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/images.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calyp">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于集合的图像识别问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-24T20:41:27+00:00">
+                2019-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">论文笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  来源于组会分享，基于集合的人脸和步态识别问题
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="GhostVLAD"><a href="#GhostVLAD" class="headerlink" title="GhostVLAD"></a>GhostVLAD</h2><p><img src="/images/Snipaste_2019-07-19_20-41-41.png" alt="nipaste_2019-07-19_20-41-4"></p>
+<p>我们熟悉的人脸识别的一般流程是输入一张图片，然后经过人脸检测对齐以及特征提取后，进行人脸识别或者验证，一张图像是很好获取的，但是在现实中，比如监控视频中，由于角度和距离以及设备等原因，会得到很多姿态、光照和模糊度不同的图像，高质量的人脸图像一般难以获取，有时候还可能需要我们通过一定的算法从中选一张成像质量相对较好的进行识别，那么有一个直观的想法就是，能否直接基于多张图像的集合直接进行人脸识别呢?</p>
+<p><img src="/images/Snipaste_2019-07-19_20-41-52.png" alt="nipaste_2019-07-19_20-41-5"></p>
+<p>GhostVLAD是ACCV2018年的一篇基于集合的人脸识别论文</p>
+<p>VLAD是一种局部描述算子，主要应用在图像大规模检索领域，在于提出一种图像表示方法，在拥有合理的向量维度下，具有很好的搜索准确率</p>
+<p>左边的式子是VLAD的计算公式，ak为0或者1，当ck为xi的最近聚类中心时，ak=1，其余为0。可以参看中间的图示部分，有颜色的原点表示聚类中心点，四角星为特征点blabla。然后结合右边的伪代码看</p>
+<p>总结：VLAD的算子矩阵存的是对每个聚类中心，在其(最近邻)聚类簇中所有样本(SIFT特征)的残差和。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-02.png" alt="nipaste_2019-07-19_20-42-0"></p>
+<p>以VLAD描述子进行图像搜索的例子，对每幅图像的SIFT特征点聚合得到VLAD特征，选择k=16，所以VLAD的维度是16*128</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-10.png" alt="nipaste_2019-07-19_20-42-1"></p>
+<p>VLAD一般和传统特征一起使用，而netVLAD实现了将CNN和改进后的VLAD结合使用，最开始用在大规模的地点识别问题，任务是从一张图像中快速准确地识别位置。</p>
+<p>为了将VLAD能够应用到CNN中，将硬分配ak转化为利用Softmax的软分配，形成可微的结构，从而可以利用卷积操作和反向传播自动求导的功能，实现端到端的训练</p>
+<p>在网络中表现为用K个1x1xD的卷积核卷积之后再经过softmax层得到软分配系数，将该系数与残差相乘，最后累加得到V的向量，最后经过两次归一化操作得到维度为KxD的向量</p>
+<p>K相当于前面的K个聚类中心，N为局部特征点x的个数，D为x的维度</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-16.png" alt="nipaste_2019-07-19_20-42-1"></p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-23.png" alt="nipaste_2019-07-19_20-42-2"></p>
+<p>GhostVLAD又是基于NetVLAD的改进，增加了Ghost聚类中心，是指一些假设存在但是实际没有的中心点，就是说在聚合过程去掉这些聚类中心，主要目的是让低质量图片可以归类到这类中心点上，从而在软分配时，对实际的k个聚类中心的得分都降低。</p>
+<p>整个网络结构包括两个部分，一个就是特征提取，这一阶段会为每张人脸图片生成人脸特征向量，然后是聚合过程，将所有的单张人脸特征描述子聚合成一个紧凑的集合级的人脸特征向量。FC层是为了计算和内存考虑的降维操作，输出一般D=128</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-34.png" alt="nipaste_2019-07-19_20-42-3"></p>
+<p>D为最后每个template的维度，T为template的个数</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-40.png" alt="nipaste_2019-07-19_20-42-4"></p>
+<p>SENet-50和average-pooling一起使用，SE-2表明图像集合的size为2<br>第一行和第二行展示了人脸特征降维(2048D-128D)不会影响太大。<br>第2行和第3行表明了，SENet-50表现要优于ResNet-50<br>K值一般在4到16之间，(太小容易欠拟合，太大容易产生冗余信息和过拟合)9到11行可以看出来性能变化<br>第8行和3、4行对比，表明在没有降级图像的训练情况下，SE-GV-2的表现优于SE<br>第9行和2、5行对比，表明在降级图像训练的情况下，SE-GV-2的表现也要由于SE<br>第6行和第二行表明了计算backbone换成了ResNet，GhostVLAD还是有用的</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-48.png" alt="nipaste_2019-07-19_20-42-4"></p>
+<p>GhostVLAD中ghost聚类中心的作用，上面一行是G=0,下面是G=1，可以看出ghost聚类中心可以降低低质量图像对最终的特征表示的贡献。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-58.png" alt="nipaste_2019-07-19_20-42-5"></p>
+<h2 id="GaitSet"><a href="#GaitSet" class="headerlink" title="GaitSet"></a>GaitSet</h2><p><img src="/images/Snipaste_2019-07-19_20-43-05.png" alt="nipaste_2019-07-19_20-43-0"></p>
+<p>基于集合的步态识别GaitSet，下面的图像是一个完整的行走周期步态轮廓图</p>
+<p>作者认为步态轮廓序列中存在步态周期，在周期中每个位置的步态轮廓有着唯一的特征。步态轮廓被扰乱了，也可以通过步态轮廓特征重新的排列他们。因此作者认为一个轮廓外观包含了它的位置信息。这个假设，作者认为步态序列的时序信息是不必要的，可以将步态看着set来提取时序信息，让深度神经网络自身优化去提取并利用这种关系。</p>
+<p>作者提出的办法不受帧的排列的影响，并且可以自然地整合来自不同视频的帧，不同的视角、不同的衣服和携带条件</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-14.png" alt="nipaste_2019-07-19_20-43-1"></p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-21.png" alt="nipaste_2019-07-19_20-43-2"></p>
+<p>输入时步态的轮廓图集合，首先，CNN用来提取帧级特，然后Set<br>pooling操作用来将帧级特征聚合成集合级的特征，然后HPM用来将集合级的特征映射到更具有判别力的空间特征得到最终的特征表示。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-29.png" alt="nipaste_2019-07-19_20-43-2"></p>
+<p>Setpooling是用来整合集合中的步态信息的，所以有一个约束就是由于输入的是集合，应该是置换不变的</p>
+<p>主要思想是利用全局信息来学习每个帧级特征图的注意力图，以对其进行细化<br>全局信息首先是由左侧的统计函数得到的，然后将其与原始特征图一起送入1x1卷积层计算，相当于attention机制，通过在精化的帧级特征映射集合上使用MAX来提取最终的集合级特征z，残差结构可以加速并稳定收敛</p>
+<p>max, mean and median are applied on setdimension.<br>cat means concatenate on thechannel dimension </p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-35.png" alt="nipaste_2019-07-19_20-43-3"></p>
+<p>Motivation:HPP 是受SPP启发的，但是是被用来学习在各种尺度上增强人体各部分的具有判别力的信息。</p>
+<p>由于区分人体的分布是从头到脚，所以HPP以水平方式将特征图切成多个strip</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-41.png" alt="nipaste_2019-07-19_20-43-4"></p>
+<p>HPM是经过改进的HPP，更适合步态识别任务，</p>
+<p>使用不同尺度的strips有不同的感受野和不同空间位置的特征，所以它们使用的是独立的fc层，最后的Fc层是为了将特征映射到更具有判别力的空间</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-48.png" alt="nipaste_2019-07-19_20-43-4"></p>
+<p>不同的层有不同的感受野，层数越深的感受野越大，主要关注的是更global和粗糙的信息，层数越浅的层关注的是更局部且更精细的信息。不同的层的SP作用也是这样。MGP最后的特征也要被送入HPM层</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-53.png" alt="nipaste_2019-07-19_20-43-5"></p>
+<p>P表示有多少个人，k表示在这个batch中每个人有多少张训练样本。论文中使用的是8x16和32x16</p>
+<p>Online triplet mining</p>
+<p>Batch all:计算所有的validtriplet，对hard 和 semi-hardtriplets上的loss进行平均。</p>
+<ul>
+<li>不考虑easy triplets，因为easytriplets的损失为0，平均会把整体损失缩小</li>
+<li>将会产生PK(K-1)(PK-K)个triplet，即PK个anchor，对于每个anchor有k-1个可能的positiveexample，PK-K个可能的negativeexamples</li>
+</ul>
+<p><img src="/images/Snipaste_2019-07-19_20-43-59.png" alt="nipaste_2019-07-19_20-43-5"></p>
+<p>NM:6 coat:2 bag:2</p>
+<p>each subject has 11 × (6 +2 + 2) = 110 sequences </p>
+<p>在测试阶段，所有的三种行走状态的前4个NM的序列作为gallery，剩余的6个序列被分成三个probe set中</p>
+<p><img src="/images/Snipaste_2019-07-19_20-44-05.png" alt="nipaste_2019-07-19_20-44-0"></p>
+<p>3 walking conditions and 11 views </p>
+<p>Total:124 subjects<br>NM表示正常的行走状态</p>
+<p>0、90、180度准确率最低，可能的原因是步态信息不仅包含与步行方向平行的步幅信息，如90°时最明显可以观察到的步幅信息，还包括与行走方向垂直的步态信息，如可以观察到的身体或手臂的左右摆动最明显的是0°或180°</p>
+<p>而36度和144度这两种信息都包含了，所以识别效果较好<img src="/images/Snipaste_2019-07-19_20-44-12.png" alt="nipaste_2019-07-19_20-44-1"></p>
+<p>1、2行显示了set和GEI两种模式的影响，GEI是指将步态轮廓</p>
+<p>第2、3行显示的是HPM的权重共享还是不共享对识别的影响</p>
+<p>3-8行显示了其他条件相同时，SP的不同设置对最终识别的影响，括号为表现最好的</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/set-based-recognition/" rel="tag"><i class="fa fa-tag"></i> set-based recognition</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/11/表情识别/" rel="next" title="表情识别">
+                <i class="fa fa-chevron-left"></i> 表情识别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/19/行为识别/" rel="prev" title="行为识别">
+                行为识别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/images.jpg"
+               alt="Calyp" />
+          <p class="site-author-name" itemprop="name">Calyp</p>
+           
+              <p class="site-description motion-element" itemprop="description">学习博客</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nerddd/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5048688311/profile?topnav=1&wvr=6" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="" target="_blank" title="Other">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Other
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/atom.xml" title="Feed" target="_blank">Feed</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="/sitemap.xml" title="SiteMap" target="_blank">SiteMap</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GhostVLAD"><span class="nav-number">1.</span> <span class="nav-text">GhostVLAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GaitSet"><span class="nav-number">2.</span> <span class="nav-text">GaitSet</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calyp</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

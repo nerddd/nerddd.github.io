@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="calyp.github.io/"/>
-  <updated>2019-07-19T12:34:23.359Z</updated>
+  <updated>2019-07-19T12:58:45.618Z</updated>
   <id>calyp.github.io/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <title>行为识别</title>
     <link href="calyp.github.io/2019/05/19/%E8%A1%8C%E4%B8%BA%E8%AF%86%E5%88%AB/"/>
     <id>calyp.github.io/2019/05/19/行为识别/</id>
-    <published>2019-05-19T11:56:57.000Z</published>
-    <updated>2019-07-19T12:34:23.359Z</updated>
+    <published>2019-05-19T19:56:57.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h2 id="ST-GCN"><a href="#ST-GCN" class="headerlink" title="ST-GCN"></a>ST-GCN</h2><p>论文：2018AAAI《Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action Recognition》</p>
 <h3 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h3><p><img src="/images/Snipaste_2019-07-19_20-17-39.png" alt="nipaste_2019-07-19_20-17-3"></p>
@@ -122,11 +122,97 @@
   </entry>
   
   <entry>
+    <title>基于集合的图像识别问题</title>
+    <link href="calyp.github.io/2019/03/24/%E5%9F%BA%E4%BA%8E%E9%9B%86%E5%90%88%E7%9A%84%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%98/"/>
+    <id>calyp.github.io/2019/03/24/基于集合的图像识别问题/</id>
+    <published>2019-03-24T20:41:27.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="GhostVLAD"><a href="#GhostVLAD" class="headerlink" title="GhostVLAD"></a>GhostVLAD</h2><p><img src="/images/Snipaste_2019-07-19_20-41-41.png" alt="nipaste_2019-07-19_20-41-4"></p>
+<p>我们熟悉的人脸识别的一般流程是输入一张图片，然后经过人脸检测对齐以及特征提取后，进行人脸识别或者验证，一张图像是很好获取的，但是在现实中，比如监控视频中，由于角度和距离以及设备等原因，会得到很多姿态、光照和模糊度不同的图像，高质量的人脸图像一般难以获取，有时候还可能需要我们通过一定的算法从中选一张成像质量相对较好的进行识别，那么有一个直观的想法就是，能否直接基于多张图像的集合直接进行人脸识别呢?</p>
+<p><img src="/images/Snipaste_2019-07-19_20-41-52.png" alt="nipaste_2019-07-19_20-41-5"></p>
+<p>GhostVLAD是ACCV2018年的一篇基于集合的人脸识别论文</p>
+<p>VLAD是一种局部描述算子，主要应用在图像大规模检索领域，在于提出一种图像表示方法，在拥有合理的向量维度下，具有很好的搜索准确率</p>
+<p>左边的式子是VLAD的计算公式，ak为0或者1，当ck为xi的最近聚类中心时，ak=1，其余为0。可以参看中间的图示部分，有颜色的原点表示聚类中心点，四角星为特征点blabla。然后结合右边的伪代码看</p>
+<p>总结：VLAD的算子矩阵存的是对每个聚类中心，在其(最近邻)聚类簇中所有样本(SIFT特征)的残差和。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-02.png" alt="nipaste_2019-07-19_20-42-0"></p>
+<p>以VLAD描述子进行图像搜索的例子，对每幅图像的SIFT特征点聚合得到VLAD特征，选择k=16，所以VLAD的维度是16*128</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-10.png" alt="nipaste_2019-07-19_20-42-1"></p>
+<p>VLAD一般和传统特征一起使用，而netVLAD实现了将CNN和改进后的VLAD结合使用，最开始用在大规模的地点识别问题，任务是从一张图像中快速准确地识别位置。</p>
+<p>为了将VLAD能够应用到CNN中，将硬分配ak转化为利用Softmax的软分配，形成可微的结构，从而可以利用卷积操作和反向传播自动求导的功能，实现端到端的训练</p>
+<p>在网络中表现为用K个1x1xD的卷积核卷积之后再经过softmax层得到软分配系数，将该系数与残差相乘，最后累加得到V的向量，最后经过两次归一化操作得到维度为KxD的向量</p>
+<p>K相当于前面的K个聚类中心，N为局部特征点x的个数，D为x的维度</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-16.png" alt="nipaste_2019-07-19_20-42-1"></p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-23.png" alt="nipaste_2019-07-19_20-42-2"></p>
+<p>GhostVLAD又是基于NetVLAD的改进，增加了Ghost聚类中心，是指一些假设存在但是实际没有的中心点，就是说在聚合过程去掉这些聚类中心，主要目的是让低质量图片可以归类到这类中心点上，从而在软分配时，对实际的k个聚类中心的得分都降低。</p>
+<p>整个网络结构包括两个部分，一个就是特征提取，这一阶段会为每张人脸图片生成人脸特征向量，然后是聚合过程，将所有的单张人脸特征描述子聚合成一个紧凑的集合级的人脸特征向量。FC层是为了计算和内存考虑的降维操作，输出一般D=128</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-34.png" alt="nipaste_2019-07-19_20-42-3"></p>
+<p>D为最后每个template的维度，T为template的个数</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-40.png" alt="nipaste_2019-07-19_20-42-4"></p>
+<p>SENet-50和average-pooling一起使用，SE-2表明图像集合的size为2<br>第一行和第二行展示了人脸特征降维(2048D-128D)不会影响太大。<br>第2行和第3行表明了，SENet-50表现要优于ResNet-50<br>K值一般在4到16之间，(太小容易欠拟合，太大容易产生冗余信息和过拟合)9到11行可以看出来性能变化<br>第8行和3、4行对比，表明在没有降级图像的训练情况下，SE-GV-2的表现优于SE<br>第9行和2、5行对比，表明在降级图像训练的情况下，SE-GV-2的表现也要由于SE<br>第6行和第二行表明了计算backbone换成了ResNet，GhostVLAD还是有用的</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-48.png" alt="nipaste_2019-07-19_20-42-4"></p>
+<p>GhostVLAD中ghost聚类中心的作用，上面一行是G=0,下面是G=1，可以看出ghost聚类中心可以降低低质量图像对最终的特征表示的贡献。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-42-58.png" alt="nipaste_2019-07-19_20-42-5"></p>
+<h2 id="GaitSet"><a href="#GaitSet" class="headerlink" title="GaitSet"></a>GaitSet</h2><p><img src="/images/Snipaste_2019-07-19_20-43-05.png" alt="nipaste_2019-07-19_20-43-0"></p>
+<p>基于集合的步态识别GaitSet，下面的图像是一个完整的行走周期步态轮廓图</p>
+<p>作者认为步态轮廓序列中存在步态周期，在周期中每个位置的步态轮廓有着唯一的特征。步态轮廓被扰乱了，也可以通过步态轮廓特征重新的排列他们。因此作者认为一个轮廓外观包含了它的位置信息。这个假设，作者认为步态序列的时序信息是不必要的，可以将步态看着set来提取时序信息，让深度神经网络自身优化去提取并利用这种关系。</p>
+<p>作者提出的办法不受帧的排列的影响，并且可以自然地整合来自不同视频的帧，不同的视角、不同的衣服和携带条件</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-14.png" alt="nipaste_2019-07-19_20-43-1"></p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-21.png" alt="nipaste_2019-07-19_20-43-2"></p>
+<p>输入时步态的轮廓图集合，首先，CNN用来提取帧级特，然后Set<br>pooling操作用来将帧级特征聚合成集合级的特征，然后HPM用来将集合级的特征映射到更具有判别力的空间特征得到最终的特征表示。</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-29.png" alt="nipaste_2019-07-19_20-43-2"></p>
+<p>Setpooling是用来整合集合中的步态信息的，所以有一个约束就是由于输入的是集合，应该是置换不变的</p>
+<p>主要思想是利用全局信息来学习每个帧级特征图的注意力图，以对其进行细化<br>全局信息首先是由左侧的统计函数得到的，然后将其与原始特征图一起送入1x1卷积层计算，相当于attention机制，通过在精化的帧级特征映射集合上使用MAX来提取最终的集合级特征z，残差结构可以加速并稳定收敛</p>
+<p>max, mean and median are applied on setdimension.<br>cat means concatenate on thechannel dimension </p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-35.png" alt="nipaste_2019-07-19_20-43-3"></p>
+<p>Motivation:HPP 是受SPP启发的，但是是被用来学习在各种尺度上增强人体各部分的具有判别力的信息。</p>
+<p>由于区分人体的分布是从头到脚，所以HPP以水平方式将特征图切成多个strip</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-41.png" alt="nipaste_2019-07-19_20-43-4"></p>
+<p>HPM是经过改进的HPP，更适合步态识别任务，</p>
+<p>使用不同尺度的strips有不同的感受野和不同空间位置的特征，所以它们使用的是独立的fc层，最后的Fc层是为了将特征映射到更具有判别力的空间</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-48.png" alt="nipaste_2019-07-19_20-43-4"></p>
+<p>不同的层有不同的感受野，层数越深的感受野越大，主要关注的是更global和粗糙的信息，层数越浅的层关注的是更局部且更精细的信息。不同的层的SP作用也是这样。MGP最后的特征也要被送入HPM层</p>
+<p><img src="/images/Snipaste_2019-07-19_20-43-53.png" alt="nipaste_2019-07-19_20-43-5"></p>
+<p>P表示有多少个人，k表示在这个batch中每个人有多少张训练样本。论文中使用的是8x16和32x16</p>
+<p>Online triplet mining</p>
+<p>Batch all:计算所有的validtriplet，对hard 和 semi-hardtriplets上的loss进行平均。</p>
+<ul>
+<li>不考虑easy triplets，因为easytriplets的损失为0，平均会把整体损失缩小</li>
+<li>将会产生PK(K-1)(PK-K)个triplet，即PK个anchor，对于每个anchor有k-1个可能的positiveexample，PK-K个可能的negativeexamples</li>
+</ul>
+<p><img src="/images/Snipaste_2019-07-19_20-43-59.png" alt="nipaste_2019-07-19_20-43-5"></p>
+<p>NM:6 coat:2 bag:2</p>
+<p>each subject has 11 × (6 +2 + 2) = 110 sequences </p>
+<p>在测试阶段，所有的三种行走状态的前4个NM的序列作为gallery，剩余的6个序列被分成三个probe set中</p>
+<p><img src="/images/Snipaste_2019-07-19_20-44-05.png" alt="nipaste_2019-07-19_20-44-0"></p>
+<p>3 walking conditions and 11 views </p>
+<p>Total:124 subjects<br>NM表示正常的行走状态</p>
+<p>0、90、180度准确率最低，可能的原因是步态信息不仅包含与步行方向平行的步幅信息，如90°时最明显可以观察到的步幅信息，还包括与行走方向垂直的步态信息，如可以观察到的身体或手臂的左右摆动最明显的是0°或180°</p>
+<p>而36度和144度这两种信息都包含了，所以识别效果较好<img src="/images/Snipaste_2019-07-19_20-44-12.png" alt="nipaste_2019-07-19_20-44-1"></p>
+<p>1、2行显示了set和GEI两种模式的影响，GEI是指将步态轮廓</p>
+<p>第2、3行显示的是HPM的权重共享还是不共享对识别的影响</p>
+<p>3-8行显示了其他条件相同时，SP的不同设置对最终识别的影响，括号为表现最好的</p>
+]]></content>
+    
+    <summary type="html">
+    
+      来源于组会分享，基于集合的人脸和步态识别问题
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="calyp.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="set-based recognition" scheme="calyp.github.io/tags/set-based-recognition/"/>
+    
+  </entry>
+  
+  <entry>
     <title>表情识别</title>
     <link href="calyp.github.io/2019/03/11/%E8%A1%A8%E6%83%85%E8%AF%86%E5%88%AB/"/>
     <id>calyp.github.io/2019/03/11/表情识别/</id>
-    <published>2019-03-11T00:56:06.000Z</published>
-    <updated>2019-07-04T13:04:39.123Z</updated>
+    <published>2019-03-11T08:56:06.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Facial-Expression-Recognition-with-Inconsistently-Annotated-Datasets"><a href="#Facial-Expression-Recognition-with-Inconsistently-Annotated-Datasets" class="headerlink" title="Facial Expression Recognition with Inconsistently Annotated Datasets"></a>Facial Expression Recognition with Inconsistently Annotated Datasets</h2><p><strong>paper</strong>:<a href="http://openaccess.thecvf.com/content_ECCV_2018/papers/Jiabei_Zeng_Facial_Expression_Recognition_ECCV_2018_paper.pdf" target="_blank" rel="external">http://openaccess.thecvf.com/content_ECCV_2018/papers/Jiabei_Zeng_Facial_Expression_Recognition_ECCV_2018_paper.pdf</a><br><strong>code</strong>:<a href="https://github.com/dualplus/LTNet" target="_blank" rel="external">https://github.com/dualplus/LTNet</a><br><strong>Author</strong>:  Jiabei Zeng, Shiguang Shan, and Xilin Chen<br><strong>time</strong>: ECCV2018</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>Annotation errors and bias are inevitable among different facial expression datasets due to the subjectiveness of annotating facial expressions. Ascribe to the inconsistent annotations, performance of existing facial expression recognition (FER) methods cannot keep improving when the training set is enlarged by merging multiple datasets. To address the inconsistency, we propose an Inconsistent Pseudo Annotations to Latent Truth(IPA2LT) framework to train a FER model from multiple inconsistently labeled datasets and large scale unlabeled data. In IPA2LT, we assign each sample more than one labels with human annotations or model predictions. Then, we propose an end-to-end LTNet with a scheme of discovering the latent truth from the inconsistent pseudo labels and the input face images. To our knowledge, IPA2LT serves as the first work to solve the training problem with inconsistently labeled FER datasets. Experiments on synthetic data validate the effectiveness of the proposed method in learning from inconsistent labels. We also conduct extensive experiments in FER and show that our method outperforms other state-of-the-art and optional methods under a rigorous evaluation protocol involving 7 FER datasets<br><strong>翻译</strong>:由于标注面部表情的主观性，标注错误和误差在不同的面部表情数据集种是不可避免的，归因于不一致的标注。当通过合并多个数据集扩大数据集时，现有的面部表情识别方法的性能不能持续提升，为了解决这种不一致性，我们提出了一种不一致的潜在真实伪标注(IPA2LT)框架，用于从多个不一致标记的数据集和大规模未标记数据中训练FER模型。在IPA2LT中，我们未每个样本分配多个带有人工标注或模型预测的标签，然后我们提出一种端到端的LTNet，其思想时从不一致的伪标签和输入的面部图像中发现潜在的真相(也就是真实标签)。据我们所知，IPA2LT是第一个用不一致标记的FER数据集来解决训练问题的工作，对合成数据的实验验证了所提出的方法从不一致标签中学习的有效性。我们还在FER中进行了大量实验，并表明我们的方法在涉及7个FER数据集的严格评估协议下优于其他最先进和可选的方法。</p>
@@ -192,8 +278,8 @@
     <title>相关数学知识</title>
     <link href="calyp.github.io/2019/02/28/%E7%9B%B8%E5%85%B3%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
     <id>calyp.github.io/2019/02/28/相关数学知识/</id>
-    <published>2019-02-28T00:53:22.000Z</published>
-    <updated>2019-03-01T07:09:18.546Z</updated>
+    <published>2019-02-28T08:53:22.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h2 id="统计学相关"><a href="#统计学相关" class="headerlink" title="统计学相关"></a>统计学相关</h2><h3 id="协方差、协方差矩阵"><a href="#协方差、协方差矩阵" class="headerlink" title="协方差、协方差矩阵"></a>协方差、协方差矩阵</h3><p>标准差和方差一般是用来描述一维数据的，针对多维数据，协方差就是用来<strong>度量两个随机变量关系</strong>的统计量，仿照方差的定义</p>
 <p><img src="/images/20150930142616971.jpg" alt="015093014261697"></p>
@@ -238,8 +324,8 @@
     <title>图像质量评估论文笔记</title>
     <link href="calyp.github.io/2019/02/26/%E5%9B%BE%E5%83%8F%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2019/02/26/图像质量评估论文笔记/</id>
-    <published>2019-02-26T00:46:12.000Z</published>
-    <updated>2019-06-28T07:06:42.141Z</updated>
+    <published>2019-02-26T08:46:12.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="图像质量评估-IQA"><a href="#图像质量评估-IQA" class="headerlink" title="图像质量评估(IQA)"></a>图像质量评估(IQA)</h1><h2 id="Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment"><a href="#Convolutional-Neural-Networks-for-No-Reference-Image-Quality-Assessment" class="headerlink" title="Convolutional Neural Networks for No-Reference Image Quality Assessment"></a>Convolutional Neural Networks for No-Reference Image Quality Assessment</h2><p><strong>Paper</strong>:<a href="https://ieeexplore.ieee.org/iel7/6909096/6909393/06909620.pdf" target="_blank" rel="external">Convolutional Neural Networks for No-Reference Image Quality …</a><br><strong>code</strong>:-<br><strong>Author</strong>:Le Kang，Peng Ye，Yi Li，David Doermann<br><strong>time</strong>:2014CVPR</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>In this work we describe a Convolutional Neural Network (CNN) to accurately predict image quality without a reference image. Taking image patches as input, the CNN works in the spatial domain without using hand-crafted features that are employed by most previous methods. The network consists of one convolutional layer with max and min pooling, two fully connected layers and an output node. Within the network structure, feature learning and regression are integrated into one optimization process, which leads to a more effective model for estimating image quality. This approach achieves state of the art performance on the LIVE dataset and shows excellent generalization ability in cross dataset experiments. Further experiments on images with local distortions demonstrate the local quality estimation ability of our CNN, which is rarely reported in previous literature.<br><strong>翻译</strong>：在这篇论文中，将会介绍如何在不需要参考图像的情况下利用CNN来准确预测图像质量(NR-IQA)。输入为图像的patch，CNN不需要利用手工特征，该网络包括一个卷积层和最大、最小池化层、两个全连接层和输出节点。在网络结构中，特征学习和回归被集成到一个优化过程中，这样模型预测图像质量会更有效。该方法在LIVE数据集上达到了state-of-the-art，并且在交叉数据集实验中泛化能力优异，对局部失真图像的进一步实验表明了CNN的局部质量评估能力，这在以前的文献中很少报道。</p>
@@ -314,8 +400,8 @@
     <title>每日阅读</title>
     <link href="calyp.github.io/2019/02/25/%E6%AF%8F%E6%97%A5%E9%98%85%E8%AF%BB/"/>
     <id>calyp.github.io/2019/02/25/每日阅读/</id>
-    <published>2019-02-25T00:46:12.000Z</published>
-    <updated>2019-03-06T01:35:54.953Z</updated>
+    <published>2019-02-25T08:46:12.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h1><h2 id="Rethinking-ImageNet-Pre-training"><a href="#Rethinking-ImageNet-Pre-training" class="headerlink" title="Rethinking ImageNet Pre-training"></a>Rethinking ImageNet Pre-training</h2><p><strong>Paper</strong>:<a href="http://arxiv.org/pdf/1811.10104v1" target="_blank" rel="external">Rethinking ImageNet Pre-training</a><br><strong>code</strong>:-<br><strong>Author</strong>:Kaiming He、 Ross Girshick 、Piotr Dollar 、Facebook AI Research (FAIR)<br><strong>time</strong>:2018</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>We report competitive results on object detection and instance segmentation on the COCO dataset using standard models trained <strong>from random initialization</strong>.The results are no worse than their ImageNet pre-training counterparts even when using the hyper-parameters of the baseline system (Mask R-CNN) that were optimized for fine -tuning pre-trained models, with the sole exception of increasing the number of training iterations so the randomly initialized models may converge.Training from random initialization is surprisingly robust; our results hold even when: (i) Using only 10% of the training data, (ii) for deeper and wider models, and (iii) for multiple tasks and metrics.Experiments show that ImageNet pre-training speeds up convergence early in training, but does not necessarily provide regularization or improve final target task accuracy.To push the envelope we demonstrate 50.9 AP on COCO object detection without using any external data–a result on par with the top COCO 2017 competition results that used ImageNet pre-training.These observations challenge the conventional wisdom of ImageNet pre-training for dependent tasks and we expect these discoveries will encourage people to rethink the current de facto paradigm of ‘ pre-training and fine -tuning’ in computer vision.<br><strong>翻译</strong>：我们使用随机初始化训练的标准模型报告在COCO数据集上的物体检测和物体分割的竞争结果。即使使用baseline model的超参数，结果也不比它们的ImageNet预训练对应物差（Mask R-CNN）针对精细调整预训练模型进行了优化，唯一的例外是增加训练迭代次数，因此随机初始化模型可以收敛。随机初始化训练非常强大;我们的结果即使在以下情况下仍然存在：（i）仅使用10％的训练数据，（ii）用于更深和更宽的模型，以及（iii）用于多个任务和指标。实验表明在ImageNet预训练速度能加速训练时候的收敛速度，但不一定提供正则化或提高最终在目标任务上的准确性。为了突破这个范围，我们在不使用任何外部数据的情况下在COCO对象检测上达到了50.9 AP  - 这个结果与2017年COCO相同使用ImageNet预训练的最好的竞赛结果差不多。这些结论挑战了ImageNet与训练对于依赖性任务的传统智慧，我们期望这些发现将鼓励人们重新思考计算机视觉中的“pre-training and fine-tuneing”范式。</p>
@@ -457,8 +543,8 @@
     <title>人脸质量评估</title>
     <link href="calyp.github.io/2019/02/23/%E4%BA%BA%E8%84%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0/"/>
     <id>calyp.github.io/2019/02/23/人脸质量评估/</id>
-    <published>2019-02-23T12:16:20.000Z</published>
-    <updated>2019-02-23T12:23:21.708Z</updated>
+    <published>2019-02-23T20:16:20.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><h3 id="数据标注"><a href="#数据标注" class="headerlink" title="数据标注"></a>数据标注</h3><p>利用2015年的一篇人脸图像质量评估论文<a href="https://ieeexplore.ieee.org/iel7/97/4358004/06877651.pdf" target="_blank" rel="external">Face Image Quality Assessment Based on Learning to Rank</a>提供的工具对数据图像数据集进行标注，人脸图像可以利用MTCNN 进行预处理，这里将人脸上下扩展了1/2，左右扩展了1/3，不进行对齐(不改变人脸的偏转角，因为这也属于图像质量评估的一个考察因素），该工具输出的值为0-100的整数值，此处将其归一化为[0,1]之间的实数值</p>
 <h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>在做回归问题时，特别是标签为浮点数时，最好不要使用lmdb数据格式，原始的caffe中lmdb好像对float支持不太友好，可以通过修改源码，参考链接：<a href="https://blog.csdn.net/change_things/article/details/74786185" target="_blank" rel="external">如何将float类型的特征数据存入lmdb</a>，但是此处可以换一个办法，利用hdf5存储，具体细节就不多讲了，但是有一个点要注意就是在读取数据的时候，</p>
@@ -499,8 +585,8 @@
     <title>年龄估计</title>
     <link href="calyp.github.io/2018/12/05/%E5%B9%B4%E9%BE%84%E4%BC%B0%E8%AE%A1/"/>
     <id>calyp.github.io/2018/12/05/年龄估计/</id>
-    <published>2018-12-05T08:48:48.000Z</published>
-    <updated>2019-03-27T07:12:49.064Z</updated>
+    <published>2018-12-05T16:48:48.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h1><ul>
 <li><strong>FG-Net</strong>:1002 images,0到69岁，82个人</li>
@@ -572,8 +658,8 @@
     <title>手册&amp;指南</title>
     <link href="calyp.github.io/2018/05/27/%E6%89%8B%E5%86%8C&amp;%E6%8C%87%E5%8D%97/"/>
     <id>calyp.github.io/2018/05/27/手册&amp;指南/</id>
-    <published>2018-05-27T01:32:52.000Z</published>
-    <updated>2019-07-04T13:05:15.518Z</updated>
+    <published>2018-05-27T09:32:52.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Linux操作相关"><a href="#Linux操作相关" class="headerlink" title="Linux操作相关"></a>Linux操作相关</h1><p>##基本操作<br><strong>打包</strong>：<br>​       <code>tar -cvf xx.tar xxx</code><br>​       <code>tar zcvf xx.tar.gz xx</code><br><strong>解压</strong>：<br>       <code>tar zxvf xx.tar.gz</code><br>       <code>tar xvf xx.tar</code><br>       <code>tar jxvf xx.tar.bz2</code><br>       <code>bzip2 -d xx.bz2</code><br><strong>创建目录xx</strong>：<code>mkdir xx</code><br><strong>创建目录a及以下子目录b</strong>:<code>mkdir -p a/b</code><br><strong>创建xx文件</strong>:<code>touch xx</code><br><strong>查看xx文件</strong>:<code>cat xx</code><br><strong>查看xx文件</strong>:<code>less xx</code>(内容多于一屏时，j/k向下/上翻滚)<br><strong>显示绝对路径</strong>：<code>pwd</code><br><strong>删除空目录</strong>：<code>rmdir</code><br><strong>删除xx文件</strong>：<code>rm xx</code><br><strong>强制删除目录a</strong>:<code>rm -rf a</code><br><strong>删除目录a</strong>:<code>rm -r a</code><br><strong>删除父目录a中所有的空子目录</strong>：<code>cd a; rmdir</code><br><strong>复制文件a到文件b</strong>：<code>cp a b</code><br><strong>复制目录a为目录b</strong>：<code>cp -r a/ b/</code><br><strong>从指定文件搜索指定文件</strong>：<code>grep &#39;指定内容&#39; ./ -R</code><br><strong>下载文件到xx目录</strong>：<code>axel http://... -o xx</code><br><strong>给文件a.c加执行权限</strong>：<code>chmod +x a.c</code><br><strong>运行脚本xx.sh</strong>:<code>sh xx.sh</code><br><strong>使.bashrc生效</strong>：<code>source ~/.bashrc</code><br><strong>查看opencv版本</strong>：<code>pkg-config --modversion opencv</code><br><strong>查看opencv安装位置</strong>：<code>pkg-config -cflags opencv</code><br><strong>查找</strong>：<code>grep -n -H -R &quot;you want to search &quot; *</code><br><strong>查看文件夹大小</strong>：<code>du -sh</code><br><strong>查看文件夹大小并排序</strong>：<code>du -h /home/* | sort</code><br><strong>查看文件夹大小</strong>：<code>du -h --max-depth=1 ./</code><br><strong>查看磁盘的使用情况</strong>：<code>df -h</code><br><strong>查看权限</strong>：<code>ls -l filaname</code><br><strong>查看GPU使用率</strong>：<code>nvidia-smi</code><br><strong>查看CPU使用率</strong>：<code>top</code><br><strong>查看文件夹内文件个数</strong>：<code>ls -l | grep &#39;^-&#39; | wc -l</code><br><strong>查看文件夹内目录个数</strong>：<code>ls -l | grep &#39;^d&#39; | wc -l</code><br><strong>查看文件行数</strong>：<code>wc -l filename</code><br><strong>批量更改图片尺寸</strong>：<code>mogrify -resize 224x224 -format jpg *</code></p>
 <p><strong>查看网络设置</strong>：<code>ifconfig</code><br><strong>查看操作系统</strong>：<code>uname -a</code><br><strong>查看ubuntu版本</strong>：<code>lsb_release -a</code><br><strong>查看操作系统位数</strong>：getconf LONG_BIT<br><strong>查看gcc版本</strong>：<code>ls /usr/bin/gcc*或gcc -v</code><br><strong>查看磁盘使用情况</strong>：<code>baobab</code><br><strong>添加用户</strong>：<code>sudo adduser username</code><br><strong>删除用户</strong>: <code>sudo userdel -r username</code><br><strong>添加sudo权限</strong>：<code>sudo vi /etc/sudoers</code></p>
@@ -631,8 +717,8 @@
     <title>人脸识别回顾</title>
     <link href="calyp.github.io/2018/01/29/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%9B%9E%E9%A1%BE/"/>
     <id>calyp.github.io/2018/01/29/人脸识别回顾/</id>
-    <published>2018-01-29T01:47:23.000Z</published>
-    <updated>2019-07-04T13:01:44.683Z</updated>
+    <published>2018-01-29T09:47:23.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h1><p><strong>数据清洗</strong>：去除错误标签，图片质量不好的样本，如果有benchmark，还需要去除和benchmark重复的样本。</p>
 <p><strong>构造验证集</strong>:  对于给定的数据集，可能没有划分train set和validation set ，需要手动从给定的训练集中按照一定的比例分离出验证集（比如9:1）</p>
@@ -792,8 +878,8 @@
     <title>DeepID3论文笔记</title>
     <link href="calyp.github.io/2017/07/04/DeepID3%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/07/04/DeepID3论文笔记/</id>
-    <published>2017-07-04T02:34:31.000Z</published>
-    <updated>2018-12-05T09:20:35.318Z</updated>
+    <published>2017-07-04T10:34:31.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>深层的网络由于良好的学习能力，近年来在目标识别领域取得巨大成功，基于此，提出两个非常深的网络架构，DeepID3，这两个架构分别基于VGG net和GoogLeNet通过改进使之用于人脸识别。Joint face identification-verification supervisory signals are added to both intermediate and<br>final feature extraction layers during training.        </p>
 ]]></content>
@@ -817,8 +903,8 @@
     <title>Center loss笔记</title>
     <link href="calyp.github.io/2017/06/29/Center-loss%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/06/29/Center-loss笔记/</id>
-    <published>2017-06-29T09:05:51.000Z</published>
-    <updated>2018-12-05T09:29:14.096Z</updated>
+    <published>2017-06-29T17:05:51.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<p>论文：<a href="https://link.springer.com/chapter/10.1007%2F978-3-319-46478-7_31" target="_blank" rel="external">A Discriminative Feature Learning Approach for Deep Face Recognition</a></p>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>对于一般的CNN网络，softmax通常作为监督信号来训练深层网络，为了增强提取的特征的可辨别性（discriminative），提出center loss，应对人脸识别任务。center loss同时学习每个类别的深层特征中心和惩罚深层特征和它们对应的类中心的距离（the center loss simultaneously learns a center for deep<br>features of each class and penalizes the distances between the deep features and their corresponding class centers）。将softmax和center loss联合起来，可以训练一个健壮的CNN来获取深层特征的两个关键目标，类内紧凑和类间分散。</p>
@@ -844,8 +930,8 @@
     <title>FaceNet论文笔记</title>
     <link href="calyp.github.io/2017/06/28/FaceNet%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
     <id>calyp.github.io/2017/06/28/FaceNet论文笔记/</id>
-    <published>2017-06-28T02:11:42.000Z</published>
-    <updated>2018-12-05T09:29:09.723Z</updated>
+    <published>2017-06-28T10:11:42.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<p><em>原文链接</em>:<a href="https://arxiv.org/abs/1503.03832" target="_blank" rel="external">FaceNet:A unified embedding for face recognition and clustering</a></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>FaceNet，可以直接将人脸图像映射到欧几里得空间，空间距离的长度代表了人脸图像的相似性，只要该映射空间生成，人脸识别、验证和聚类等任务就可以轻松完成。FaceNet在LFW数据集上的准确率为99.63%，在YouTube Faces 数据集上准确率为95.12%。</p>
@@ -886,8 +972,8 @@
     <title>Caffe调参</title>
     <link href="calyp.github.io/2017/06/17/Caffe%E8%B0%83%E5%8F%82/"/>
     <id>calyp.github.io/2017/06/17/Caffe调参/</id>
-    <published>2017-06-17T01:26:12.000Z</published>
-    <updated>2019-03-01T03:10:23.884Z</updated>
+    <published>2017-06-17T09:26:12.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="loss为nan"><a href="#loss为nan" class="headerlink" title="loss为nan"></a>loss为nan</h1><h2 id="梯度爆炸"><a href="#梯度爆炸" class="headerlink" title="梯度爆炸"></a>梯度爆炸</h2><p><strong>原因</strong>：梯度变得非常大，使得学习过程难以继续<br><strong>现象：</strong>观察log，注意每一轮迭代后的loss。loss随着每轮迭代越来越大，最终超过了浮点型表示的范围，就变成了NaN。<br><strong>措施</strong>： </p>
 <ol>
@@ -920,8 +1006,8 @@
     <title>Python</title>
     <link href="calyp.github.io/2017/06/09/Python/"/>
     <id>calyp.github.io/2017/06/09/Python/</id>
-    <published>2017-06-09T12:52:56.000Z</published>
-    <updated>2018-12-05T09:21:41.670Z</updated>
+    <published>2017-06-09T20:52:56.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="图像操作"><a href="#图像操作" class="headerlink" title="图像操作"></a>图像操作</h1><h2 id="关于PIL-image和skimage的图像处理"><a href="#关于PIL-image和skimage的图像处理" class="headerlink" title="关于PIL image和skimage的图像处理"></a>关于PIL image和skimage的图像处理</h2><h3 id="对skimage图像"><a href="#对skimage图像" class="headerlink" title="对skimage图像"></a>对skimage图像</h3><p>镜像处理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from skimage import io,transform</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">import cv2</div><div class="line"></div><div class="line">img=io.imread(&quot;test.jpg&quot;)</div><div class="line">#img=transform.rotate(img,180)</div><div class="line">img=cv2.flip(img,1)</div><div class="line">plt.figure(&apos;skimage&apos;)</div><div class="line">plt.imshow(img)</div><div class="line">plt.show()</div><div class="line">print img.shape</div><div class="line">print(img.dtype)</div></pre></td></tr></table></figure>
@@ -970,8 +1056,8 @@
     <title>Triplet loss</title>
     <link href="calyp.github.io/2017/06/02/Triplet%20loss/"/>
     <id>calyp.github.io/2017/06/02/Triplet loss/</id>
-    <published>2017-06-02T12:26:35.000Z</published>
-    <updated>2018-12-05T09:29:18.170Z</updated>
+    <published>2017-06-02T20:26:35.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>Triplet是一个三元组，这个三元组是这样构成的：从训练数据集中随机选一个样本，该样本称为Anchor，然后再随机选取一个和Anchor (记为x_a)属于同一类的样本Positive (记为x_p)和不同类的样本Negative (记为x_n)，由此构成一个（Anchor，Positive，Negative）三元组。</p>
 <p><img src="http://img.blog.csdn.net/20160727090101355" alt="Triplet Loss 示意图"></p>
@@ -1000,8 +1086,8 @@
     <title>Hexo相关</title>
     <link href="calyp.github.io/2017/06/02/Hexo%E7%9B%B8%E5%85%B3/"/>
     <id>calyp.github.io/2017/06/02/Hexo相关/</id>
-    <published>2017-06-02T08:05:45.000Z</published>
-    <updated>2018-12-05T09:21:07.498Z</updated>
+    <published>2017-06-02T16:05:45.000Z</published>
+    <updated>2019-07-19T12:58:45.602Z</updated>
     
     <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="Hexo无法正常显示公式"><a href="#Hexo无法正常显示公式" class="headerlink" title="Hexo无法正常显示公式"></a>Hexo无法正常显示公式</h2><p>善用主题(theme)，以我使用的next主题为例，打开/themes/next/_config.yml文件，更改mathjax开关为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># MathJax Support</div><div class="line">mathjax:</div><div class="line">  enable: true</div><div class="line">  per_page: true</div></pre></td></tr></table></figure>
@@ -1029,8 +1115,8 @@
     <title>待办及进度</title>
     <link href="calyp.github.io/2017/06/02/%E5%BE%85%E5%8A%9E%E5%8F%8A%E8%BF%9B%E5%BA%A6/"/>
     <id>calyp.github.io/2017/06/02/待办及进度/</id>
-    <published>2017-06-02T07:15:46.000Z</published>
-    <updated>2019-07-04T13:04:04.827Z</updated>
+    <published>2017-06-02T15:15:46.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="step1-Mirror-face相关"><a href="#step1-Mirror-face相关" class="headerlink" title="step1:Mirror face相关"></a>step1:Mirror face相关</h1><table>
 <thead>
@@ -1889,8 +1975,8 @@
     <title>杂知识点</title>
     <link href="calyp.github.io/2017/06/01/%E6%9D%82%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>calyp.github.io/2017/06/01/杂知识点/</id>
-    <published>2017-06-01T01:42:05.000Z</published>
-    <updated>2019-03-06T02:28:25.557Z</updated>
+    <published>2017-06-01T09:42:05.000Z</published>
+    <updated>2019-07-19T12:58:45.618Z</updated>
     
     <content type="html"><![CDATA[<h1 id="分类与回归"><a href="#分类与回归" class="headerlink" title="分类与回归"></a>分类与回归</h1><p><strong>本节部分转载于穆文发表于知乎的<a href="https://www.zhihu.com/question/21329754/answer/151216012" target="_blank" rel="external">分类与回归区别是什么</a>下面的回答，获得原作者授权</strong></p>
 <p><em>分类与回归的模型本质一样，分类模型可将回归模型的输出离散化，回归模型也可将分类模型的输出连续化。</em></p>
